@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-li=_6h$(x(p@=cn!jph$5zb-r!9o@cnl%n0h(r$a49f_z*79z7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [1]
 
 
 # Application definition
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'xe',
+        'USER': 'django',
+        'PASSWORD': '1234',
+        'HOST': '172.31.93.35',
+        'PORT': '8081',
     }
 }
 
@@ -103,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
 
