@@ -23,10 +23,10 @@ class Plato(models.Model):
 	precio = models.IntegerField()
 	disponibilidad = models.BooleanField(default=False)
 	imagen_producto = models.ImageField(
- 		upload_to='media/platos',
+ 		upload_to='platos',
  		null=True, 
  		blank=True,
- 		default = 'media/noimage.png'
+ 		default = '/noimage.png'
  		)
 
 	class Meta:

@@ -14,4 +14,6 @@ tienda/migrations/0002_alter_mesa_options_alter_plato_options.py
 tienda/migrations/__pycache__/0001_initial.cpython-310.pyc
 tienda/migrations/__pycache__/0002_alter_mesa_options_alter_plato_options.cpython-310.pyc
 tienda/migrations/__pycache__/__init__.cpython-310.pyc
+tienda/__pycache__/
+tienda/migrations/
 
