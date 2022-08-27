@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.model import AbstractBaseUser, BaseUserManager #import para crear usuarios custom
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager #import para crear usuarios custom
 
 # Create your models here.
 
@@ -13,7 +13,7 @@ class MyUserManager(BaseUserManager):
 	"""
 
 	def create_user(self, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,nombre_usuario,correo,password,rol):
-		user = self.model(
+		user = self.models(
 			primer_nombre = primer_nombre,
 			segundo_nombre = segundo_nombre,
 			primer_apellido = primer_apellido,
@@ -25,18 +25,18 @@ class MyUserManager(BaseUserManager):
 		return user
 	def create_super_user(self, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,nombre_usuario,correo,password):
 		user = self.create_user(
-            primer_nombre = primer_nombre,
+			primer_nombre = primer_nombre,
 			segundo_nombre = segundo_nombre,
 			primer_apellido = primer_apellido,
 			nombre_usuario = normalize_username(nombre_usuario),
 			correo = normalize_email(correo),
 			rol = "Administrador")
-        user.set_password(password)
+		user.set_password(password)
 
-        #user.is_admin = True //Añadir este parámetro si hace conflicto con la pagina de admin
+		#user.is_admin = True //Añadir este parámetro si hace conflicto con la pagina de admin
 
-        user.save(using=self._db)
-        return user
+		user.save(using=self._db)
+		return user
 
 class MyUser(AbstractBaseUser):
 	"""
@@ -61,7 +61,8 @@ class MyUser(AbstractBaseUser):
 		max_length = 60)
 	nombre_usuario = models.CharField(
 		verbose_name = "Nombre de usuario",
-		max_length = 20)
+		max_length = 20,
+		unique = True)
 	correo = models.EmailField(
 		"Direcion de correo",)
 	password = models.CharField(
@@ -70,6 +71,8 @@ class MyUser(AbstractBaseUser):
 	rol = models.CharField(
 		verbose_name = "rol",
 		max_length = 20)
+
+	objects = MyUserManager()
 
 	"""
 	Para manejar la sesion con el sistema propio de "django auth" es necesario identificar cual es el atributo
@@ -84,5 +87,5 @@ class MyUser(AbstractBaseUser):
 	"""
 
 	class Meta:
-       managed = False
-       db_table = 'USUARIO'
+		managed = False
+		db_table = 'USUARIO'
