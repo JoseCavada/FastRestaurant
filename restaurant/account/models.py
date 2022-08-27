@@ -72,8 +72,17 @@ class MyUser(AbstractBaseUser):
 	password = models.CharField(
 		verbose_name = "Contraseña",
 		max_length = 20, db_column = 'contraseña')
+
+	ENUM_ROL = (
+		('adm','Administrador'),
+		('fin','Finanza'),
+		('coc','Cocina'),
+		('bod','Bodega'),
+		)
+
 	rol = models.CharField(
 		verbose_name = "rol",
+		choices = ENUM_ROL,
 		max_length = 20)
 	last_login = models.DateTimeField(
 		blank=True,
