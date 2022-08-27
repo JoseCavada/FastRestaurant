@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-li=_6h$(x(p@=cn!jph$5zb-r!9o@cnl%n0h(r$a49f_z*79z7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [1]
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'restaurant.wsgi.application'
 
+AUTH_USER_MODEL='account.MyUser'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -76,11 +78,11 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'xe',
+        'NAME': 'orcl',
         'USER': 'django',
         'PASSWORD': '1234',
-        'HOST': '172.31.93.35',
-        'PORT': '8081',
+        'HOST': 'localhost',
+        'PORT': '1521',
     }
 }
 

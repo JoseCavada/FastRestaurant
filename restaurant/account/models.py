@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager #import para crear usuarios custom
-
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 class MyUserManager(BaseUserManager):
@@ -12,27 +12,31 @@ class MyUserManager(BaseUserManager):
 	administrador que proporciona Django
 	"""
 
-	def create_user(self, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,nombre_usuario,correo,password,rol):
-		user = self.models(
+	def create_user(self, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,nombre_usuario,correo,rol,password):
+		user = self.model(
 			primer_nombre = primer_nombre,
 			segundo_nombre = segundo_nombre,
 			primer_apellido = primer_apellido,
-			nombre_usuario = normalize_username(nombre_usuario),
-			correo = normalize_email(correo),
+			segundo_apellido = segundo_apellido,
+			nombre_usuario = nombre_usuario,
+			correo = correo,
+			password = password,
 			rol = rol)
 		user.set_password(password)
 		user.save(using=self._db)
 		return user
-	def create_super_user(self, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,nombre_usuario,correo,password):
-		user = self.create_user(
+	def create_superuser(self, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,nombre_usuario,correo,password):
+		user = self.model(
 			primer_nombre = primer_nombre,
 			segundo_nombre = segundo_nombre,
 			primer_apellido = primer_apellido,
-			nombre_usuario = normalize_username(nombre_usuario),
-			correo = normalize_email(correo),
-			rol = "Administrador")
+			segundo_apellido = segundo_apellido,
+			nombre_usuario = nombre_usuario,
+			correo = correo,
+			password = password,
+			rol = "Administrador",)
 		user.set_password(password)
-
+		user.is_staff = True
 		#user.is_admin = True //Añadir este parámetro si hace conflicto con la pagina de admin
 
 		user.save(using=self._db)
@@ -71,8 +75,28 @@ class MyUser(AbstractBaseUser):
 	rol = models.CharField(
 		verbose_name = "rol",
 		max_length = 20)
+	last_login = models.DateTimeField(
+		blank=True,
+		null=True,
+		verbose_name='last login')
+	is_staff = models.BooleanField(default=False)
 
 	objects = MyUserManager()
+
+
+	"""
+	No se para que sirve esto de abajo, pero si no está no deja iniciar sesión en la pagina de admin
+	"""
+	def __str__(self):
+		return self.nombre_usuario
+
+	def has_perm(self, perm, obj=None):
+		return True
+
+	def has_module_perms(self, app_label):
+		return True
+
+
 
 	"""
 	Para manejar la sesion con el sistema propio de "django auth" es necesario identificar cual es el atributo
@@ -80,6 +104,7 @@ class MyUser(AbstractBaseUser):
 	"""
 	USERNAME_FIELD = 'nombre_usuario'
 	EMAIL_FIELD = 'correo'
+	REQUIRED_FIELDS=['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido','correo','password']
 
 	"""
 	"Class Meta" para decirle a django que no modifique la tabla en la base de datos, ademas de identificar el nombre 
@@ -87,5 +112,5 @@ class MyUser(AbstractBaseUser):
 	"""
 
 	class Meta:
-		managed = False
+		#managed = False
 		db_table = 'USUARIO'
