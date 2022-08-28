@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<p>Usuario {{user.nombre_usuario}} iniciado sesión</p>
+	{% if user.rol == "adm" %}
+	<p>Rol de usuario es administrador</p>
+	{% endif %}
+	{% if user.rol == "fin" %}
+	<p>Rol de usuario es finanza</p>
+	{% endif %}
+	{% if user.rol == "coc" %}
+	<p>Rol de usuario es cocina</p>
+	{% endif %}
+	{% if user.rol == "bod" %}
+	<p>Rol de usuario es bodega</p>
+	{% endif %}
+
+{% endif %}
+<p>hola mundo, pagina principal a definir</p>
+{% endblock %}

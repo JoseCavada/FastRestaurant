@@ -74,6 +74,7 @@ class MyUser(AbstractBaseUser):
 		max_length = 20, db_column = 'contraseña')
 
 	ENUM_ROL = (
+		('', 'Elija rol'),
 		('adm','Administrador'),
 		('fin','Finanza'),
 		('coc','Cocina'),

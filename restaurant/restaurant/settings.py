@@ -74,6 +74,8 @@ WSGI_APPLICATION = 'restaurant.wsgi.application'
 
 AUTH_USER_MODEL='account.MyUser'
 
+LOGIN_REDIRECT_URL = '/tienda' #Dirección donde retorna al iniciar sesión
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
