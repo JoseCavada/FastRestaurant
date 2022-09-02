@@ -50,7 +50,7 @@ class MyUser(AbstractBaseUser):
 	atributo, es necesario para la llave primaria y contraseña, ya que si no django por defecto modifica
 	la base de datos y eso no queremos. 
 	"""
-	id_user = models.IntegerField( primary_key = True, db_column= 'id_user')
+	id_user = models.IntegerField( primary_key = True, db_column= 'ID_USER')
 	primer_nombre = models.CharField(
 		verbose_name = "Primer nombre",
 		max_length = 60  )
@@ -122,5 +122,5 @@ class MyUser(AbstractBaseUser):
 	"""
 
 	class Meta:
-		#managed = False
+		managed = False
 		db_table = 'USUARIO'

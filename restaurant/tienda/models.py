@@ -6,7 +6,7 @@ from django.db import models
 class Mesa(models.Model):
 	id_mesa = models.IntegerField(
 		primary_key=True,
-		db_column = 'id_mesa')
+		db_column = 'ID_MESA')
 	cantidad_personas = models.IntegerField()
 	disponibilidad = models.BooleanField(default=True)
 
@@ -17,7 +17,7 @@ class Mesa(models.Model):
 class Plato(models.Model):
 	id_plato = models.IntegerField(
 		primary_key=True,
-		db_column = 'id_plato')
+		db_column = 'ID_PLATO')
 	nombre = models.CharField(max_length=255)
 	descripcion = models.CharField(max_length=255)
 	precio = models.IntegerField()
