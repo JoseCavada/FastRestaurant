@@ -24,6 +24,7 @@ urlpatterns = [
     path("accounts/register", views.register_request, name="register")#URL para registrar usuarios
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # URL para visualizar imagenes subidas
 
+
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')), #URLs para cuentas
 ]

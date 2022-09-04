@@ -1,9 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %} 
-{% if user.is_authenticated and user.rol == "adm"%}   
+    
 
 <!--Register--> 
+{% if user.is_authenticated and user.rol == "adm"%}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -11,13 +12,13 @@
                 <form class="form-horizontal" method="post">
                     {% csrf_token %}
                     <fieldset>
-                        <legend class="col-md-8">Registro Usuario</legend>
+                        <legend class="col-md-8">Creación de mesa</legend>
 
                         <form method="post">
                             {% csrf_token %}
-                            {{ RegisterForm.as_p }}
+                            {{ MesaCreationForm.as_p }}
                             <div class="col-md-12">
-                                <button type="submit"  class="btn btn-primary btn-lg" >Registrar</button>
+                                <button type="submit"  class="btn btn-primary btn-lg" >Crear</button>
                             </div>
                         </form>
 

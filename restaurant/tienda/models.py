@@ -33,3 +33,13 @@ class Plato(models.Model):
 		managed = False
 		db_table = 'PLATO'
 
+class Insumo(models.Model):
+    id_insumo = models.IntegerField(
+    	primary_key=True,
+    	db_column = 'ID_INSUMO')
+    nombre = models.CharField(max_length=255)
+    cantidad = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'INSUMO'

@@ -32,8 +32,10 @@ class RegisterForm(forms.ModelForm):
         model = MyUser
         fields = ('primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido','nombre_usuario','correo','password','rol')
         
-    widgets = {
-            'rol': forms.Select(choices=ENUM_ROL,attrs={'class': 'form-control'}),
+        widgets = {
+            'rol': forms.RadioSelect(
+                attrs= {'class':'otro'}
+                ),
         }
 
     def clean_email(self):

@@ -34,7 +34,7 @@ class MyUserManager(BaseUserManager):
 			nombre_usuario = nombre_usuario,
 			correo = correo,
 			password = password,
-			rol = "Administrador",)
+			rol = "adm",)
 		user.set_password(password)
 		user.is_staff = True
 		#user.is_admin = True //Añadir este parámetro si hace conflicto con la pagina de admin
@@ -71,10 +71,9 @@ class MyUser(AbstractBaseUser):
 		"Direcion de correo",)
 	password = models.CharField(
 		verbose_name = "Contraseña",
-		max_length = 20, db_column = 'contraseña')
+		max_length = 100, db_column = 'contraseña')
 
 	ENUM_ROL = (
-		('', 'Elija rol'),
 		('adm','Administrador'),
 		('fin','Finanza'),
 		('coc','Cocina'),
@@ -84,6 +83,7 @@ class MyUser(AbstractBaseUser):
 	rol = models.CharField(
 		verbose_name = "rol",
 		choices = ENUM_ROL,
+		default = "adm",
 		max_length = 20)
 	last_login = models.DateTimeField(
 		blank=True,
