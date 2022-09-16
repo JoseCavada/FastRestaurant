@@ -36,7 +36,7 @@
   <input type="submit" value="login" class = "button"/>
   <input type="hidden" name="next" value="{{ next }}" />
 </div>
-<p class="center"><a href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p>
+<p class="center"><a class = "white" href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p>
 </form>
 </div>
 {# Assumes you setup the password_reset view in your URLconf #}

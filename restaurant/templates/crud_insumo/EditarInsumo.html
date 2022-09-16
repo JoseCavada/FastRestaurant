@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.rol == "adm" %}
+
+{% load widget_tweaks %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+  <!-- {{ form.as_p }} -->
+  <div class="form-group">
+    <label for="nombre" class="txt_negrita">Nombre</label>
+    {{ form.nombre|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  </div>
+  <div class="form-group">
+    <label for="precio" class="txt_negrita">Cantidad</label>
+    {{ form.cantidad|add_class:"form-control" }}
+ 
+  <button type="submit" class="btn btn-primary">Aceptar</button>
+  <a href="{% url 'listar_insumo' %}" type="submit" class="btn btn-primary">Volver</a>
+ 
+</form>
+{% else %}
+FORBIDDEN!
+{% endif%}
+{% endblock %}

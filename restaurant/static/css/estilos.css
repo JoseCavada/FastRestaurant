@@ -7,13 +7,15 @@
 	color: black;
 }
 
-a:link, a:visited, a:hover, a:active.izquierda, .derecha{
+.white:link, .white:visited, .white:hover, .white:active, .izquierda, .derecha, .white:link{
 	text-decoration: none;
 	color: black;
+	
 }
-a:hover{
+.white:hover{
 	background-color: lightblue;
 }
+
 .center {
 	text-align: center;
 	justify-content: center;
@@ -28,4 +30,26 @@ a:hover{
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.txt_negrita {
+	font-weight: bold!important;
+}
+
+/* 
+body > main > div > div.row.mb-5 > div.card.col-md-2.bg_F5F5F5, body > main > div > div.row.mb-5 > div.card.col-md-2.bg_F5F5F5 > ul > li {
+	background-color: #F5F5F5!important;
+}
+*/ 
+
+body > main > div > div.row.mb-5 > div.col-md-10 > div > div > form > div:nth-child(5) > a {
+	display: none!important;
+}
+
+.ocultar {
+	display: none!important;
+}
+span {
+    display: table;
+    margin: 0 auto;
 }

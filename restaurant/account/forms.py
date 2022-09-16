@@ -45,7 +45,7 @@ class RegisterForm(forms.ModelForm):
         email = self.cleaned_data.get('correo')
         qs = MyUser.objects.filter(correo=correo)
         if qs.exists():
-            raise forms.ValidationError("email is taken")
+            raise forms.ValidationError("Correo ya usado")
         return email
 
     def clean(self):
@@ -56,5 +56,5 @@ class RegisterForm(forms.ModelForm):
         password = cleaned_data.get("password")
         password_2 = cleaned_data.get("password_2")
         if password is not None and password != password_2:
-            self.add_error("password_2", "Your passwords must match")
+            self.add_error("password", "Tus contraseñas deben coincidir")
         return cleaned_data

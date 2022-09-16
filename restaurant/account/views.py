@@ -19,8 +19,8 @@ def register_request(request):
 			if user.rol == "adm": #Setea como administrador el usuario si así fuese necesario
 				user.is_staff = True
 			user = form.save()
-			messages.success(request, "Registration successful." )
+			messages.success(request, "Usuario registrado" )
 			return redirect("index")
-		messages.error(request, "Unsuccessful registration. Invalid information.")
+		messages.error(request, form.errors)
 	form = RegisterForm()
-	return render (request=request, template_name="register.html", context={"RegisterForm":form})
+	return render (request=request, template_name="registration/register.html", context={"RegisterForm":form})
