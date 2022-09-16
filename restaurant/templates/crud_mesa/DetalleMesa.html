@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.rol == "adm" %}
+<div class="formulario" align="center">
+<h4>Detalles</h4>
+ 
+<p><span class="txt_negrita"> Id:</span> <br>  {{object.id_Mesa}}</p>
+<p><span class="txt_negrita"> Nombre:</span> <br>  {{object.cantidad_personas}}</p>
+<p><span class="txt_negrita"> Cantidad:</span> <br>  {{object.disponibilidad}}</p>
+<!-- Botón para volver a la vista principal (Home) -->
+ <a href="{% url 'listar_mesa' %}" type="submit" class="btn btn-primary">Volver</a>
+</div>
+{% else %}
+FORBIDDEN!
+{% endif%}
+{% endblock %}

@@ -49,7 +49,4 @@ body > main > div > div.row.mb-5 > div.col-md-10 > div > div > form > div:nth-ch
 .ocultar {
 	display: none!important;
 }
-span {
-    display: table;
-    margin: 0 auto;
-}
+

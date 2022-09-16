@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.rol == "adm" %}
+<div class="formulario">
+<h4>Detalles</h4>
+ 
+<p><span class="txt_negrita"> Id:</span> <br>  {{object.id_user}}</p>
+<p><span class="txt_negrita"> Nombre de usuario:</span> <br>  {{object.nombre_usuario}}</p>
+<p><span class="txt_negrita"> Primer Nombre:</span> <br>  {{object.primer_nombre}}</p>
+<p><span class="txt_negrita"> Segundo Nombre:</span> <br>  {{object.segundo_nombre}}</p>
+<p><span class="txt_negrita"> Primer apellido:</span> <br>  {{object.primer_apellido}}</p>
+<p><span class="txt_negrita"> Segundo apellido:</span> <br>  {{object.segundo_apellido}}</p>
+<p><span class="txt_negrita"> Correo:</span> <br>  {{object.correo}}</p>
+<p><span class="txt_negrita"> Rol:</span> <br>  {{object.rol}}</p>
+<p><span class="txt_negrita"> Última conexión:</span> <br>  {{object.last_login}}</p>
+<p><span class="txt_negrita"> Estado de administrador:</span> <br>  {{object.is_staff}}</p>
+
+<!-- Botón para volver a la vista principal (Home) -->
+ <a href="{% url 'listar_usuario' %}" type="submit" class="btn btn-primary">Volver</a>
+</div>
+{% else %}
+FORBIDDEN!
+{% endif%}
+{% endblock %}

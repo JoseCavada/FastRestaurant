@@ -17,7 +17,9 @@
                             {% csrf_token %}
                             {{ RegisterForm.as_p }}
                             <div class="col-md-12">
-                                <button type="submit"  class="btn btn-primary btn-lg" >Registrar</button>
+                                <button type="submit"  class="btn btn-primary btn-lg" >Registrar
+                                    </button>
+                                    <a href="{% url 'listar_usuario' %}" type="submit" class="btn btn-primary btn-lg">Volver</a>
                             </div>
                         </form>
 

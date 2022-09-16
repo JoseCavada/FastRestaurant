@@ -9,6 +9,7 @@ class Mesa(models.Model):
 		db_column = 'ID_MESA')
 	cantidad_personas = models.IntegerField()
 	disponibilidad = models.BooleanField(default=True)
+	
 
 	class Meta:
 		managed = False
@@ -46,7 +47,7 @@ class Ingrediente(models.Model):
 
 	class Meta:
 		managed = False
-		db_table = 'ingrediente'
+		db_table = 'INGREDIENTE'
 		unique_together = (('id_ingrediente', 'id_plato'),)
 
 class Insumo(models.Model):

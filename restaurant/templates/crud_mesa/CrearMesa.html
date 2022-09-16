@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.rol == "adm" %}
+
+{% load widget_tweaks %}
+	 
+<form method="post" enctype="multipart/form-data" >
+  
+  <!--# Pasamos el 'csrf_token' de seguridad para poder crear un nuevo registro -->
+  {% csrf_token %}
+  
+  <!-- {{ form.as_p }} -->
+  <div class="form-group">
+    <label for="Cantidad" class="txt_negrita">Cantidad</label>
+    {{ form.cantidad_personas|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  </div>
+  <div class="form-group" >
+    <label for="Disponibilidad" class="txt_negrita">Disponibilidad</label>
+    {{ form.disponibilidad|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto --> 
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Aceptar</button>
+  <a href="{% url 'listar_mesa' %}" type="submit" class="btn btn-primary">Volver</a>
+ 
+</form>
+{% else %}
+FORBIDDEN!
+{% endif%}
+{% endblock %}

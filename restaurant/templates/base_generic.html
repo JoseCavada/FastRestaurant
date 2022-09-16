@@ -17,9 +17,9 @@
 			
 			<div class="izquierda">
 				{% if user.rol == "adm" %}
-				<a class = "white" href="{% url 'register'%}" >Registrar usuario</a> |
+				<a class = "white" href="{% url 'listar_usuario'%}" >Usuarios</a> |
 				<a class = "white" href="{% url 'listar_insumo' %}">Insumos</a> |
-				<a class = "white" href="{% url 'registrarMesa' %}">Crear mesa</a> |
+				<a class = "white" href="{% url 'listar_mesa' %}">Mesas</a> |
 				<a class = "white"href="#">Pedir insumos</a>
 				{% elif user.rol == "coc" %}
 				<a href="#"> </a>
