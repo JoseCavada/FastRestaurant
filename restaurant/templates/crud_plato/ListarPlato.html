@@ -6,7 +6,7 @@
 {% load widget_tweaks %}
 <div>
   <h1>
-    Insumos
+    Platos
   </h1>
 </div>
 <br>
@@ -19,27 +19,36 @@
     <tr>
       <th>Id</th>
       <th>Nombre</th>
-      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Disponibilidad</th>
+      <th>Imagen</th> 
     </tr>
   </thead>
   <tbody>
   
   <!-- Recorremos los objetos o registros que tenemos en nuestra tabla 'Insumo' y los listamos -->
-  {% for Insumo in object_list %}
+  {% for Plato in object_list %}
     <tr>
-      <td>{{ Insumo.id_insumo }}</td>
-      <td>{{ Insumo.nombre }}</td>
-      <td>{{ Insumo.cantidad }}</td>
+      <td>{{ Plato.id_plato }}</td>
+      <td>{{ Plato.nombre }}</td>
+      <td>{{ Plato.precio }}</td>
+      {% if Plato.disponibilidad == True %}
+      {% load static %} 
+        <td align="center"> <img src ="{% static 'true.ico' %}" height=30 width=30></td>
+      {% else %}
+        <td align="center"> <img src ="{% static 'false.ico' %}" height=32 width=32></td>
+      {% endif %}
+      <!-- <td>{{Plato.imagen_producto}}</td> -->
       <td>
  
         <!-- Usaremos un formulario que realizará la tarea de eliminar un registro de Insumo desde la misma tabla HTML -->                        
-        <form method="POST" action="eliminar/{{Insumo.id_insumo}}">
+        <form method="POST" action="eliminar/{{Plato.id_plato}}">
           {% csrf_token %}
           <div class="btn-group">
  
             <!-- Creamos 3 botones que son ver, Editar y Eliminar, nos sirven para gestionar nuestros registros de Insumo -->
-            <a href="detalle/{{Insumo.id_insumo}}" title="Ver" type="button" class="btn btn-success">Ver </a>
-            <a href="editar/{{Insumo.id_insumo}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
+            <a href="detalle/{{Plato.id_plato}}" title="Ver" type="button" class="btn btn-success">Ver </a>
+            <a href="editar/{{Plato.id_plato}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
             <button class="btn btn-danger" onclick="return eliminar();" type="submit">
               Eliminar
             </button>

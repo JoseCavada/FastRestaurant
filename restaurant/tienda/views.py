@@ -3,7 +3,7 @@ from .forms import MesaCreationForm,InsumoCreationForm
 from django.contrib import messages
 from django.views.generic import ListView, DetailView 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Insumo, Mesa
+from .models import Insumo, Mesa, Plato
 from django.urls import reverse
 from django.contrib.messages.views import SuccessMessageMixin 
 from django import forms
@@ -12,17 +12,6 @@ from django import forms
 def index(request):
 	return render(request,'index.html')
 	
-
-
-def registrarMesa(request):
-	if request.method == "POST":
-		form = MesaCreationForm(request.POST)
-		if form.is_valid():
-			messages.success(request, "Registration successful." )
-			return redirect("index")
-		messages.error(request, "Unsuccessful registration. Invalid information.")
-	form = MesaCreationForm()
-	return render (request=request, template_name="crear_mesa.html", context={"MesaCreationForm":form})
 
 #CRUD Insumo ↓↓↓
 class InsumoListado(ListView): 
@@ -106,3 +95,13 @@ class MesaEliminar(SuccessMessageMixin, DeleteView):
         messages.success (self.request, (success_message))
         return reverse('listar_mesa')  
 #CRUD MESA ↑↑↑
+
+#CRUD PLATO ↓↓↓
+class PlatoListado(ListView):
+    model = Plato
+    paginate_by = 10
+
+class PlatoDetalle(DetailView):
+    model = Plato
+
+#CRUD PLATO ↑↑↑

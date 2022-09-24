@@ -15,6 +15,42 @@ class Mesa(models.Model):
 		managed = False
 		db_table = 'MESA'
 
+
+'''
+class Ingrediente(models.Model):
+	id_ingrediente = models.IntegerField(
+		primary_key=True,
+		db_column = 'ID_INGREDIENTE'
+		,null = True)
+	id_plato = models.ForeignKey('Plato', models.DO_NOTHING, db_column='ID_PLATO',null = True)
+	id_insumo = models.ForeignKey('Insumo', models.DO_NOTHING, db_column='ID_INSUMO',null = True)
+
+	def __str__(self):
+		return self.id_ingrediente
+
+	class Meta:
+		managed = False
+		db_table = 'INGREDIENTE'
+'''
+
+class Insumo(models.Model):
+	id_insumo = models.IntegerField(
+		primary_key=True,
+		db_column = 'ID_INSUMO',
+		default = 0)
+	nombre = models.CharField(max_length=255)
+	cantidad = models.IntegerField()
+
+	def __str__(self):
+		return self.nombre
+
+	def __unicode__(self):
+		return self.nombre
+		
+	class Meta:
+		managed = True
+		db_table = 'INSUMO'
+
 class Plato(models.Model):
 	id_plato = models.IntegerField(
 		primary_key=True,
@@ -29,38 +65,14 @@ class Plato(models.Model):
 		blank=True,
 		default = '/noimage.png'
 		)
-
-	class Meta:
-		managed = False
-		db_table = 'PLATO'
-
-class Ingrediente(models.Model):
-	id_ingrediente = models.IntegerField(
-		primary_key=True,
-		db_column = 'ID_INGREDIENTE')
-	id_plato = models.ForeignKey('Plato', models.DO_NOTHING, db_column='id_plato')
-	id_insumo = models.ForeignKey('Insumo', models.DO_NOTHING, db_column='id_insumo')
-	cantidad = models.BigIntegerField()
-
-	def __str__(self):
-		return self.id_ingrediente
-
-	class Meta:
-		managed = False
-		db_table = 'INGREDIENTE'
-		unique_together = (('id_ingrediente', 'id_plato'),)
-
-class Insumo(models.Model):
-	id_insumo = models.IntegerField(
-		primary_key=True,
-		db_column = 'ID_INSUMO',
-		default = 0)
-	nombre = models.CharField(max_length=255)
-	cantidad = models.IntegerField()
+	ingredientes = models.ManyToManyField('Insumo')
 
 	def __str__(self):
 		return self.nombre
 
 	class Meta:
-		managed = False
-		db_table = 'INSUMO'
+		managed = True
+		db_table = 'PLATO'
+
+
+
