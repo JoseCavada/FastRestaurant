@@ -1,14 +1,20 @@
-from django.shortcuts import render
-from .forms import MesaCreationForm,InsumoCreationForm
+from django.shortcuts import render, redirect
+from .forms import PlatoCreationForm, PlatoCrearForm
 from django.contrib import messages
-from django.views.generic import ListView, DetailView 
+from django.views.generic import ListView, DetailView, FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Insumo, Mesa, Plato
 from django.urls import reverse
 from django.contrib.messages.views import SuccessMessageMixin 
 from django import forms
+from django.http import HttpResponseRedirect
+
 
 # Create your views here.
+
+def principal(request):
+    return render(request, 'principal.html')
+
 def index(request):
 	return render(request,'index.html')
 	
@@ -103,5 +109,25 @@ class PlatoListado(ListView):
 
 class PlatoDetalle(DetailView):
     model = Plato
+
+class PlatoCrear1(SuccessMessageMixin, CreateView): 
+    model = Plato
+    form = Plato
+    fields = ["nombre","descripcion","precio","disponibilidad","imagen_producto","ingredientes",] #parametros de la clase a crear, no está la ID ya que es automatica
+    success_message = 'Plato creada correctamente !' # Mostramos este Mensaje luego de Crear un Plato
+ 
+    # Redireccionamos a la página de listado luego de crear un registro de Plato
+    def get_success_url(self):
+        success_message = 'Plato creado correctamente !' # Mostramos este Mensaje luego de Crear un Plato
+        return reverse('listar_plato') # Redireccionamos a la vista listar Plato
+
+class PlatoActualizar(SuccessMessageMixin, UpdateView):
+    model = Plato
+    form = Plato
+    fields = ["nombre","descripcion","precio","disponibilidad","imagen_producto","ingredientes",]
+    success_message = 'Plato Actualizada Correctamente !'
+    def get_success_url(self):
+        success_message = 'Plato Actualizada Correctamente !' # Mostramos este Mensaje luego de actualizar una Mesa
+        return reverse('listar_plato')
 
 #CRUD PLATO ↑↑↑

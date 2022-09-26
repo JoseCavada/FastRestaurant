@@ -71,10 +71,10 @@
                 <br>
                 {% if page_obj.has_previous %}
                 
-                    <a class = "white" href="{% url 'listar_insumo' %}?page={{ page_obj.previous_page_number }}"><<<</a>
+                    <a class = "white" href="{% url 'listar_plato' %}?page={{ page_obj.previous_page_number }}"><<<</a>
                 {% endif %} 
                 {% if page_obj.has_next %}
-                    <a class = "white" href="{% url 'listar_insumo' %}?page={{ page_obj.next_page_number }}">>>></a>
+                    <a class = "white" href="{% url 'listar_plato' %}?page={{ page_obj.next_page_number }}">>>></a>
                 {% endif %}
             </span>
         </div>
@@ -82,7 +82,7 @@
     <!-- script que envía una alerta para confirmar la eliminación del Insumo -->
     <script type="text/javascript">
       function eliminar() {
-        var x = confirm("Eliminar Producto ?");
+        var x = confirm("Eliminar Plato ?");
         if (x)
           return true;
         else

@@ -1,0 +1,53 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.rol == "adm" or user.rol == "bod" %}
+
+{% load widget_tweaks %}
+<div>
+  <h1>
+    Editar Plato
+  </h1>
+</div>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+<div class="form-group">
+    <label for="nombre" class="txt_negrita">Nombre</label>
+    {{form.nombre|add_class:"form-control"}}
+</div>
+<div class="form-group">
+    <label for="descripcion" class="txt_negrita">Descripción</label>
+    {{form.descripcion|add_class:"form-control"}}
+</div>
+<div class="form-group">
+    <label for="precio" class="txt_negrita">Precio</label>
+    {{form.precio|add_class:"form-control"}}
+</div>
+<div class="form-group">
+    <label for="disponibilidad" class="txt_negrita">Disponibilidad</label>
+    {{ form.disponibilidad|add_class:"form-control" }}
+</div>
+<div class="form-group">
+    <label for="ingredientes" class="txt_negrita">Ingredientes</label>
+    <p>Seleccione con CTRL todos los ingredientes que posee el plato:</p>
+    {{ form.ingredientes|add_class:"form-control mb-3" }}
+    {% for ingrediente in form.all %}
+    <label  for="ts1">{{ingrediente}}</label>
+    <input type="checkbox" name="products" value="{{ ingrediente.ingrediente }}" />
+    {% endfor %}
+
+
+
+</div>
+<div class="form-group">
+    <label for="imagen_producto" class="txt_negrita">Imagen</label>
+    <input type="file" name="imagen_producto" class="form-control mb-3">
+</div>
+
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+    <a href="{% url  'listar_plato'%}" type="submit" class="btn btn-primary">Cancelar</a>
+</form>
+{% else %}
+FORBIDDEN!
+{% endif%}
+{% endblock %}

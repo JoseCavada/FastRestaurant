@@ -34,10 +34,9 @@ class Ingrediente(models.Model):
 '''
 
 class Insumo(models.Model):
-	id_insumo = models.IntegerField(
+	id_insumo = models.AutoField(
 		primary_key=True,
-		db_column = 'ID_INSUMO',
-		default = 0)
+		db_column = 'ID_INSUMO')
 	nombre = models.CharField(max_length=255)
 	cantidad = models.IntegerField()
 
@@ -52,7 +51,7 @@ class Insumo(models.Model):
 		db_table = 'INSUMO'
 
 class Plato(models.Model):
-	id_plato = models.IntegerField(
+	id_plato = models.AutoField(
 		primary_key=True,
 		db_column = 'ID_PLATO')
 	nombre = models.CharField(max_length=255)

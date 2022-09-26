@@ -1,14 +1,15 @@
 from django import forms
-from .models import Mesa, Insumo
+from .models import Plato, Insumo
 
-class MesaCreationForm(forms.ModelForm):
-	id_mesa = 0
+class PlatoCreationForm(forms.ModelForm):
+	id_plato = 0
 	class Meta:
-		model = Mesa
-		fields = ('cantidad_personas','disponibilidad')
+		model = Plato
+		fields = ["nombre","descripcion","precio","disponibilidad","imagen_producto","ingredientes",] #parametros de la clase a crear, no está la ID ya que es automatica
 
-class InsumoCreationForm(forms.ModelForm):
-	id_insumo = 0
+class PlatoCrearForm(forms.Form):
+	id_plato = 0
+	ingredientes = forms.ModelMultipleChoiceField(Insumo.objects.all())
 	class Meta:
-		model = Insumo
-		fields = ('nombre', 'cantidad')
+		model = Plato
+		fields = ["nombre","descripcion","precio","disponibilidad","imagen_producto"] #parametros de la clase a crear, no está la ID ya que es automatica
