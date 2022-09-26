@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% block title %}<title>FastRestaurant</title>{% endblock %}
+	{% load static %}
+	{# Cargamos la librería #}
+    {% load bootstrap4 %}
+ 
+    {# CSS Bootstrap #}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css\estilos.css' %}">
+</head>
+<body>
+
+	
+<section id="galeria" class="container">
+        <div >
+        	<div align="left">
+        		<a class = " btn btn-primary" href="{% url 'totem_inicio'%}" >Volver</a> 
+        	</div>
+          	<h1 align="center">Platos disponibles	</h1>
+        </div>
+
+        <div class="row">
+          {% for plato in num_plato %}
+          {% if plato.disponibilidad %}
+          {% load static %}
+          <div class="col-lg-4">
+            <div class="card">
+              <img class="card-img-top" src="{{plato.imagen_producto.url}}">
+              <div class="card-body">
+                <h4 class="card-title"> {{ plato.nombre }}</h4>
+                <p class="card-text"><h3>Descripción</h3> {{plato.descripcion}} </p>
+                <p class="card-text"><h3>Ingredientes</h3>
+                {% for ingrediente in plato.ingredientes.all %} {{ ingrediente.nombre }}<br/>{% endfor %}</p>
+                <p class="card-text"><h3>Precio</h3> ${{plato.precio}} </p>
+				<!-- <a href="#" class="btn btn-primary"></a> -->
+				
+			
+              </div>
+            </div>
+          </div>
+          {% endif %}          
+          {% endfor %}
+        </div>
+  </section>
+
+</body>
+{% include 'messages.html' %}
+	{% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
+
+	{% block content %}<!-- default content text (typically empty) -->{% endblock %}
+	
+	{# JS y jQuery Bootstrap #}
+    {% bootstrap_javascript jquery='full' %} 
+</html>
+</html>

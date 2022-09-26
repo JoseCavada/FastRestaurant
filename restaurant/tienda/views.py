@@ -17,7 +17,19 @@ def principal(request):
 
 def index(request):
 	return render(request,'index.html')
-	
+
+def inicioTotem(request):
+    return render(request, 'totem/TotemPrincipal.html')
+
+def mesasTotem(request):
+    num_mesa = Mesa.objects.all()
+    return render(request,'totem/TotemMesas.html',
+        context = {"num_mesa":num_mesa})
+
+def menuTotem(request):
+    num_plato = Plato.objects.all()
+    return render(request, 'totem/TotemVerMenu.html',
+        context = {"num_plato":num_plato})
 
 #CRUD Insumo ↓↓↓
 class InsumoListado(ListView): 
@@ -131,3 +143,4 @@ class PlatoActualizar(SuccessMessageMixin, UpdateView):
         return reverse('listar_plato')
 
 #CRUD PLATO ↑↑↑
+

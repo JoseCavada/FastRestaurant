@@ -31,6 +31,19 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+.big_button{
+	background-color: gray;
+    color: black;
+    width: 400px;
+    height: 200px;
+    padding: 70px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
 .txt_negrita {
 	font-weight: bold!important;

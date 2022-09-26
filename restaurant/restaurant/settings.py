@@ -126,7 +126,7 @@ USE_TZ = True
 
 # Ruta de redirecinamiento por defecto al interactuar con login y logout
 LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'principal'
 
 
 # Static files (CSS, JavaScript, Images)
