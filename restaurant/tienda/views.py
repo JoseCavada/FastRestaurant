@@ -8,7 +8,9 @@ from django.urls import reverse
 from django.contrib.messages.views import SuccessMessageMixin 
 from django import forms
 from django.http import HttpResponseRedirect
-
+import qrcode
+import os 
+from pathlib import Path
 
 # Create your views here.
 
@@ -25,6 +27,13 @@ def mesasTotem(request):
     num_mesa = Mesa.objects.all()
     return render(request,'totem/TotemMesas.html',
         context = {"num_mesa":num_mesa})
+def qrpantalla(request):
+    domain = request.META['HTTP_HOST']
+    dataQr = domain + "/totem/menu"
+    img = qrcode.make(dataQr)
+    img.save('static/menu.png')
+
+    return render(request, 'totem/TotemQRMenu.html')
 
 def menuTotem(request):
     num_plato = Plato.objects.all()

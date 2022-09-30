@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-li=_6h$(x(p@=cn!jph$5zb-r!9o@cnl%n0h(r$a49f_z*79z7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -70,6 +70,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "sesame.backends.ModelBackend",
 ]
 
 WSGI_APPLICATION = 'restaurant.wsgi.application'

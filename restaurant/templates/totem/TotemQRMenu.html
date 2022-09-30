@@ -13,25 +13,24 @@
     <link rel="stylesheet" href="{% static 'css\estilos.css' %}">
 </head>
 <body>
+  <div align="center">
+    <h1>Escanea este código QR para ver el menú en tu teléfono</h1>
+    <img src="{% static 'menu.png'%}">
+    <div align="center">
+            <a class = " btn btn-primary" href="{% url 'totem_inicio'%}" >Página Principal</a> 
+    </div>
+  </div>
 
-<div align="center">
-	<h1 align="center">Seleccione opción</h1>
-	<br>
-	<a href="{% url 'totem_mesas' %}" class="big_button white">Pedir mesa</a>
-	<br>
-	<br>
-	<a href=" {% url 'totem_qrmenu' %} "class="big_button white" >Ver Menú (QR) </a>
-	<br>
-	<br>
-	<a href="#" class="big_button white" >Reservar</a>
-</div>
+	
+
 
 </body>
-	{% include 'messages.html' %}
+{% include 'messages.html' %}
 	{% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
 
 	{% block content %}<!-- default content text (typically empty) -->{% endblock %}
 	
 	{# JS y jQuery Bootstrap #}
     {% bootstrap_javascript jquery='full' %} 
+</html>
 </html>

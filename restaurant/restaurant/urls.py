@@ -36,5 +36,6 @@ urlpatterns += [
     path('',views2.principal, name = 'principal'),
     path('totem',views2.inicioTotem, name='totem_inicio'),
     path('totem/mesas',views2.mesasTotem, name = "totem_mesas"),
-    path('totem/menu',views2.menuTotem, name = "totem_verMenu"),
+    path('totem/menu',views2.menuTotem, name = "totem_vermenu"),
+    path('totem/qrmenu', views2.qrpantalla, name= "totem_qrmenu")
 ]
