@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Mesa(models.Model):
-	id_mesa = models.IntegerField(
+	id_mesa = models.AutoField(
 		primary_key=True,
 		db_column = 'ID_MESA')
 	cantidad_personas = models.IntegerField()

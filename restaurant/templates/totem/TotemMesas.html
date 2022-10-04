@@ -33,7 +33,12 @@
               <div class="card-body">
                 <h4 class="card-title"> Mesa N° {{ mesa.id_mesa }}</h4>
                 <p class="card-text"><h3>Cantidad de personas</h3> {{mesa.cantidad_personas}} </p>
-				<a href="#" class="btn btn-primary">Pedir mesa</a>
+                <form method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id_mesa" id="id_mesa" value="{{mesa.id_mesa}}">
+                  <button type="submit" class="btn btn-primary" >Pedir Mesa</button>
+                </form>
+
 				
 			
               </div>

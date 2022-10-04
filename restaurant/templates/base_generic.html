@@ -31,10 +31,11 @@
 			
 
 			<div>
-				{% if user.is_authenticated %}
+				{% if user.is_authenticated and user.rol != "mesa" %}
 				<a class = "white" href="#">{{user.nombre_usuario}}</a> |
-				<a class = "white" href="{% url 'logout' %}">Cerrar sesión</a>	
-				{% else %}
+				<a class = "white" href="{% url 'logout' %}">Cerrar sesión</a>
+				{% endif %}	
+				{% if user.is_aunthenticated == False %}
 				<a class = "white" href="{% url 'principal' %}">Volver al menu principal</a>	
 				{% endif %}
 			</div>

@@ -19,6 +19,7 @@
         	<div align="left">
         		<a class = " btn btn-primary" href="{% url 'totem_inicio'%}" >Volver</a> 
         	</div>
+            <h1> {{user.primer_nombre}} </h1>
           	<h1 align="center">Platos disponibles	</h1>
         </div>
 
@@ -35,7 +36,9 @@
                 <p class="card-text"><h3>Ingredientes</h3>
                 {% for ingrediente in plato.ingredientes.all %} {{ ingrediente.nombre }}<br/>{% endfor %}</p>
                 <p class="card-text"><h3>Precio</h3> ${{plato.precio}} </p>
-				<!-- <a href="#" class="btn btn-primary"></a> -->
+                {% if user.rol == "mesa" %}
+				        <a href="#" class="btn btn-primary">Agregar al pedido</a>
+                {% endif %}
 				
 			
               </div>
