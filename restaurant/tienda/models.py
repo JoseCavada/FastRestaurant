@@ -1,4 +1,5 @@
 from django.db import models
+from account.models import MyUser
 
 # Create your models here.
 
@@ -14,24 +15,6 @@ class Mesa(models.Model):
 	class Meta:
 		managed = False
 		db_table = 'MESA'
-
-
-'''
-class Ingrediente(models.Model):
-	id_ingrediente = models.IntegerField(
-		primary_key=True,
-		db_column = 'ID_INGREDIENTE'
-		,null = True)
-	id_plato = models.ForeignKey('Plato', models.DO_NOTHING, db_column='ID_PLATO',null = True)
-	id_insumo = models.ForeignKey('Insumo', models.DO_NOTHING, db_column='ID_INSUMO',null = True)
-
-	def __str__(self):
-		return self.id_ingrediente
-
-	class Meta:
-		managed = False
-		db_table = 'INGREDIENTE'
-'''
 
 class Insumo(models.Model):
 	id_insumo = models.AutoField(
@@ -73,5 +56,64 @@ class Plato(models.Model):
 		managed = True
 		db_table = 'PLATO'
 
+class PedidoPlato(models.Model):
+	id_pedido = models.AutoField(
+		primary_key = True,
+		db_column = 'ID_PEDIDO')
+
+	id_mesa = models.ForeignKey(
+		MyUser,
+		on_delete = models.CASCADE,
+		db_column = 'ID_MESA' )	
+
+	estado = models.BooleanField(
+		default = False)
 
 
+	fecha_pedido_plato = models.DateTimeField(auto_now_add = True)
+
+	def __str__(self):
+		return f'{self.id_pedido} | {self.id_mesa}'
+
+	class Meta:
+		managed = True
+		db_table = 'PEDIDO_PLATO'
+
+
+class DetallePedidoPlato(models.Model):
+	id_detalle_pedido = models.AutoField(
+		primary_key = True,
+		db_column = 'ID_DETALLE_PEDIDO')
+	id_pedido = models.ForeignKey(
+		PedidoPlato,
+		on_delete = models.CASCADE,
+		db_column = 'ID_PEDIDO',
+		blank = True)
+
+	id_plato = models.ForeignKey(
+		Plato,
+		on_delete = models.CASCADE,
+		db_column = 'ID_PLATO')
+
+	cantidad = models.IntegerField()
+
+	ENUM_ESTADO = (
+		('pen','pendiente'),
+		('ped','pedido'),
+		('pre','preparando'),
+		('lis','listo'),)
+	estado = models.CharField(
+		verbose_name = "estado",
+		choices = ENUM_ESTADO,
+		default = "ped",
+		max_length = 20,
+		blank = True
+		)
+
+	puntuacion = models.IntegerField()
+
+	def __str__(self):
+		return f'ID: {self.id_detalle_pedido} | Pedido N°{self.id_pedido} | Plato: {self.id_plato} | Cantidad {self.cantidad} | Estado {self.estado}'
+	class Meta:
+		managed = True
+		db_table = 'DETALLE_PEDIDO_PLATO'

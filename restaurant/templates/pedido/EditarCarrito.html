@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.rol == "mesa"  %}
+<div class="" align="center">
+  <p><span class="txt_negrita"> Nombre:</span> <br>  {{plato.id_plato.nombre}}</p>
+  <p><span class="txt_negrita"> Descripcion:</span> <br>  {{plato.id_plato.descripcion}}</p>
+  <p><span class="txt_negrita"> Precio:</span> <br>  {{plato.id_plato.precio}}</p>
+  <p><span class="txt_negrita"> </span> <br><img src="{{plato.id_plato.imagen_producto.url}}" alt="{{plato.nombre}}" class="img-fluid"></p>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="id_plato" value="{{plato.id_plato}}">
+    <!--<input type="text" name="cantidad" value="cantidad del producto, se podría modificar con funcion en javascript, si no, manual"> -->
+    <label for="cantidad" class="txt_negrita">cantidad</label>
+      <input type="text" name="cantidad" value="{{plato.cantidad}}" class="form-control">
+      <input type="hidden" name="puntuacion" value="1">
+     <button type="submit" class="btn btn-primary">Agregar al pedido</button>
+  </form>
+   <a href="{% url 'ver_carrito' %}" type="submit" class="btn btn-primary">Volver</a>
+</div>
+</div>
+{% endif %}
+{% endblock %}

@@ -97,8 +97,9 @@ class MyUser(AbstractBaseUser):
 	"""
 	No se para que sirve esto de abajo, pero si no está no deja iniciar sesión en la pagina de admin
 	"""
-	def __str__(self):
-		return self.nombre_usuario
+
+	def __int__(self):
+		return self.id_user
 
 	def has_perm(self, perm, obj=None):
 		return True

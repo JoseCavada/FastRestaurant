@@ -5,4 +5,5 @@ from tienda.models import *
 admin.site.register(Mesa)
 admin.site.register(Plato)
 admin.site.register(Insumo)
-#admin.site.register(Ingrediente)
+admin.site.register(PedidoPlato)
+admin.site.register(DetallePedidoPlato)

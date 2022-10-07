@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="{% static 'css\estilos.css' %}">
 </head>
 	<header>
+		{% block navbar %}
 		<nav class="navbar">
 			
 			<div class="izquierda">
@@ -41,6 +42,7 @@
 			</div>
 			
 		</nav>
+		{% endblock %}
 	</header>
 <body>
 	{% include 'messages.html' %}

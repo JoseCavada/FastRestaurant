@@ -12,15 +12,32 @@
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css\estilos.css' %}">
 </head>
-<body>	
+<body>
+<header>
+  {% block navbar %}
+  {% if user.rol == "mesa" %}
+  <nav class="navbar">
+    <div>
+      <a class="white" href="{% url 'ver_carrito' %}">Ver pedido</a> 
+    </div>
+  </nav>
+  {% endif %}
+  {% endblock %}  
+</header>	
 
 <section id="galeria" class="container">
         <div >
+          {% if user.rol != "mesa" %}
         	<div align="left">
         		<a class = " btn btn-primary" href="{% url 'totem_inicio'%}" >Volver</a> 
         	</div>
-            <h1> {{user.primer_nombre}} </h1>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <h1> {{user.primer_nombre}}</h1>
+          {% endif %}
           	<h1 align="center">Platos disponibles	</h1>
+          
+            
         </div>
 
         <div class="row">
@@ -32,13 +49,13 @@
               <img class="card-img-top" src="{{plato.imagen_producto.url}}">
               <div class="card-body">
                 <h4 class="card-title"> {{ plato.nombre }}</h4>
-                <p class="card-text"><h3>Descripción</h3> {{plato.descripcion}} </p>
-                <p class="card-text"><h3>Ingredientes</h3>
-                {% for ingrediente in plato.ingredientes.all %} {{ ingrediente.nombre }}<br/>{% endfor %}</p>
                 <p class="card-text"><h3>Precio</h3> ${{plato.precio}} </p>
-                {% if user.rol == "mesa" %}
-				        <a href="#" class="btn btn-primary">Agregar al pedido</a>
-                {% endif %}
+                <p> id plato = {{plato.id_plato}}</p>
+                {% if user.is_authenticated and user.rol == "mesa" %}
+                <form>
+                <a href=" {% url 'agregar_carrito' pk=plato.id_plato %}" class="btn btn-primary">Detalles</a> 
+                </form>
+				        {% endif %}
 				
 			
               </div>
