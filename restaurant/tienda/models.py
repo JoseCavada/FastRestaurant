@@ -49,6 +49,8 @@ class Plato(models.Model):
 		)
 	ingredientes = models.ManyToManyField('Insumo')
 
+	puntuacion = models.IntegerField()
+
 	def __str__(self):
 		return self.nombre
 
@@ -105,12 +107,10 @@ class DetallePedidoPlato(models.Model):
 	estado = models.CharField(
 		verbose_name = "estado",
 		choices = ENUM_ESTADO,
-		default = "ped",
+		default = "pen",
 		max_length = 20,
 		blank = True
 		)
-
-	puntuacion = models.IntegerField()
 
 	def __str__(self):
 		return f'ID: {self.id_detalle_pedido} | Pedido N°{self.id_pedido} | Plato: {self.id_plato} | Cantidad {self.cantidad} | Estado {self.estado}'

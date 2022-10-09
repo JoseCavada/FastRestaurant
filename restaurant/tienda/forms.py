@@ -12,7 +12,11 @@ class QrMesaForm(forms.Form):
 class DetallePedidoPlatoForm(forms.ModelForm):
 	class Meta:
 		model = DetallePedidoPlato
-		fields = ['id_pedido','id_plato','cantidad', 'estado','puntuacion']
+		fields = ['id_pedido','id_plato','cantidad', 'estado',]
 
 class EditarPlatoPedidoForm(forms.Form):
 	cantidad = forms.IntegerField()
+
+class EstadoPlatoPedidoForm(forms.Form):
+	id_plato = forms.IntegerField()
+	id_detalle_pedido = forms.IntegerField()

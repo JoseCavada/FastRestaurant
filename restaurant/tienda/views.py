@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import MesaCreationForm, QrMesaForm, DetallePedidoPlatoForm, EditarPlatoPedidoForm
+from .forms import EstadoPlatoPedidoForm
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -229,9 +230,9 @@ def agregarCarrito(request, pk):
         '''
         TRY y EXCEPT:
         Para saber si la el plato pertenece a una misma orden de pedido, primero se busca
-        una comanda que esté con un estado FALSE y que pertenezca a la misma mesa la cual se
-        encuentra el usuario. Si esto no fuese así, se crea un nuevo objeto del tipo comanda
-        para utilizar este
+        una comanda(objeto del tipo PedidoPlato) que esté con un estado FALSE y que pertenezca
+        a la misma mesa la cual se encuentra el usuario. Si esto no fuese así, se crea un
+        nuevo objeto del tipo comanda para utilizar ese en su lugar.
         '''
         try:
             comanda = PedidoPlato.objects.get(
@@ -309,15 +310,41 @@ def carritoEditar(request, pk):
         form = EditarPlatoPedidoForm(request.POST)
         if form.is_valid():
             plato_pedido.cantidad = form.cleaned_data['cantidad']
+            if plato_pedido.cantidad == 0:
+                plato_pedido.delete()
+                messages.add_message(request, messages.INFO, 'Plato eliminado')
+                return redirect('ver_carrito')
             plato_pedido.save()
-            messages.add_message(request,messages.INFO,'Cantidad editada')
+            messages.add_message(request, messages.INFO,'Cantidad editada')
             return redirect('ver_carrito')
     return render(request = request, template_name = "pedido/EditarCarrito.html", context={"plato":plato_pedido})
 
 
 
 #PEDIDOS PLATOS ↑↑↑
-#Vista cocina
+#Vista cocina ↓↓↓
 def verPedidos(request):
-    pedidos = DetallePedidoPlato.objects.filter(Q(estado = "ped") | Q(estado = "pre"))
+    pedidos = DetallePedidoPlato.objects.filter(
+        Q(estado = "ped") | Q(estado = "pre")).order_by('id_pedido','id_plato__puntuacion')
+    plato = DetallePedidoPlato()
+    if request.method == 'POST':
+        form = EstadoPlatoPedidoForm(request.POST)
+        print("form method es post")
+        if form.is_valid():
+            print("form valido")
+            id_plato_form = form.cleaned_data['id_plato'] 
+            id_detalle_pedido_form = form.cleaned_data['id_detalle_pedido']
+            #plato = Plato.objects.filter(id_plato = id_plato_form)
+            plato = DetallePedidoPlato.objects.get(id_plato = id_plato_form, id_detalle_pedido = id_detalle_pedido_form)
+            if plato.estado == "ped":
+                print("form es pedido")
+                plato.estado = "pre"
+                plato.save()
+                return render(request = request, template_name = "cocina/VerComandas.html", context = {"pedidos":pedidos})
+            elif plato.estado == "pre":
+                print("form es preparado")
+                plato.estado = "lis"
+                plato.save()
+                return render(request = request, template_name = "cocina/VerComandas.html", context = {"pedidos":pedidos})
+
     return render(request = request, template_name = "cocina/VerComandas.html", context = {"pedidos":pedidos})

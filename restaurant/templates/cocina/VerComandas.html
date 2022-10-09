@@ -4,11 +4,16 @@
 {% if user.rol == "coc" or user.rol == "admin" %}
 
 {% load widget_tweaks %}
+{{ form.errors }}
 <section id="galeria" class="container">
         <div >
           {% if user.rol != "mesa" %}
           <div align="left">
             <a class = " btn btn-primary" href="{% url 'totem_inicio'%}" >Volver</a> 
+              {{ formset.management_form }}
+  {{ formset.errors }}
+  {{ formset.non_field_errors }}
+  {{ formset.non_form_errors }}
           </div>
           {% endif %}
           {% if user.is_authenticated %}
@@ -29,8 +34,12 @@
                 <h4 class="card-title"> {{ comanda.id_plato.nombre }}</h4>
                 <p class="card-text"><h3>{{ comanda.id_pedido.id_mesa.primer_nombre}}</h3> </p>
                 <p class="card-text"><h3>Cantidad: {{ comanda.cantidad }}</h3> </p>
+                <p class="card-text"><h3>Estado del pedido: {{ comanda.estado }}</h3></p>
+                <p class="card-text"><h3>Cambiar estado a:</h3></p>
                 <form method="POST">
                 {% csrf_token %}
+                <input type="hidden" name="id_plato" value="{{comanda.id_plato.id_plato}}">
+                <input type="hidden" name="id_detalle_pedido" value="{{comanda.id_detalle_pedido}}">
                 {% if comanda.estado == "ped" %} 
                 <button class="btn btn-success" type="submit">Preparando</button>
                 {% elif comanda.estado == "pre" %}
@@ -45,6 +54,7 @@
           {% endfor %}
         </div>
   </section>
+
 {% else %}
 FORBIDDEN!
 {% endif%}
