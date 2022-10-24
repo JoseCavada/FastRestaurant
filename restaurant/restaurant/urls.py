@@ -39,7 +39,10 @@ urlpatterns += [
     path('totem/mesas',views2.mesasTotem, name = "totem_mesas"),
     path('totem/menu',views2.menuTotem, name = "totem_vermenu"),
     path('totem/qrmenu', views2.qrpantalla, name= "totem_qrmenu"),
-    path('totem/qrMesa/<int:id>', views2.mesaTotem, name = "totem_qrmesa")
+    path('totem/qrMesa/<int:id>', views2.mesaTotem, name = "totem_qrmesa"),
+    path('totem/qrReservar', views2.qrReservarMesaTotem, name= "totem_qrreservarmesa"),
+    path('totem/reservar',views2.reservaMesaTotem.as_view(template_name = "totem/TotemReservarMesa.html"), name = 'reservar_mesa'),
+    path('totem/reservado', views2.reservaHecha, name = "totem_reservado")
 ]
 urlpatterns += [
     path("sesame/login/", LoginView.as_view(), name="sesame-login"),

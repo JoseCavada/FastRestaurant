@@ -7,31 +7,23 @@
 	{% load static %}
 	{# Cargamos la librería #}
     {% load bootstrap4 %}
- 
+ 	
     {# CSS Bootstrap #}
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css\estilos.css' %}">
 </head>
 <body>
+  	<div >
+  		<h1>Reserva mesa</h1>
 
-<div align="center">
-	<h1 align="center">Seleccione opción</h1>
-	<br>
-	<a href="{% url 'totem_mesas' %}" class="big_button white">Pedir mesa</a>
-	<br>
-	<br>
-	<a href=" {% url 'totem_qrmenu' %} "class="big_button white" >Ver Menú (QR) </a>
-	<br>
-	<br>
-	<a href="{% url 'totem_qrreservarmesa' %}" class="big_button white" >Reservar</a>
-</div>
 
 </body>
-	{% include 'messages.html' %}
+{% include 'messages.html' %}
 	{% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
 
 	{% block content %}<!-- default content text (typically empty) -->{% endblock %}
 	
 	{# JS y jQuery Bootstrap #}
     {% bootstrap_javascript jquery='full' %} 
+</html>
 </html>

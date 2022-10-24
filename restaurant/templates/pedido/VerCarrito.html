@@ -26,7 +26,8 @@
       <th>Nombre</th>
       <th>Cantidad</th>
       <th>Precio</th>
-      <th>Imagen</th> 
+      <th>Imagen</th>
+      <th>Total</th> 
     </tr>
   </thead>
   <tbody>
@@ -39,7 +40,10 @@
       <td>{{plato.id_plato.precio}} </td>
       {% load static %}
       <td> <img src="{% get_media_prefix %}{{plato.id_plato.imagen_producto}}" class="img-fluid">  </td>
+      <td> {% widthratio plato.cantidad 1 plato.id_plato.precio %} </td>
+
       <td>
+
         <!-- Usaremos un formulario que realizará la tarea de eliminar un registro de Insumo desde la misma tabla HTML -->                        
         <form method="POST" action="eliminar/{{plato.id_detalle_pedido}}">
           {% csrf_token %}
@@ -54,9 +58,17 @@
         </form>
  
       </td>
-    </tr>
+    
 
   {% endfor %}
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td> 
+    <td> <b>Subtotal</b> </td>
+    <td>{{subtotal}}</td>
+  </tr>
   </tbody>
 </table>
 <div>

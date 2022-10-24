@@ -50,7 +50,6 @@
               <div class="card-body">
                 <h4 class="card-title"> {{ plato.nombre }}</h4>
                 <p class="card-text"><h3>Precio</h3> ${{plato.precio}} </p>
-                <p> id plato = {{plato.id_plato}}</p>
                 {% if user.is_authenticated and user.rol == "mesa" %}
                 <form>
                 <a href=" {% url 'agregar_carrito' pk=plato.id_plato %}" class="btn btn-primary">Detalles</a> 

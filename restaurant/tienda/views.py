@@ -4,7 +4,7 @@ from .forms import EstadoPlatoPedidoForm
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Insumo, Mesa, Plato, PedidoPlato, DetallePedidoPlato
+from .models import Insumo, Mesa, Plato, PedidoPlato, DetallePedidoPlato,ReservaMesa
 from django.urls import reverse
 from django.contrib.messages.views import SuccessMessageMixin 
 from django import forms
@@ -16,6 +16,8 @@ from account.models import MyUser
 from sesame.utils import get_query_string
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.contrib.admin.widgets import AdminSplitDateTime
+from django.forms.widgets import  DateTimeInput
 
 # Create your views here.
 
@@ -29,6 +31,7 @@ def index(request):
         return verPedidos(request)
     return render(request,'index.html')
 
+#TOTEM ↓↓↓
 def inicioTotem(request):
     return render(request, 'totem/TotemPrincipal.html')
 
@@ -64,14 +67,35 @@ def qrpantalla(request):
 
 def menuTotem(request):
     num_plato = Plato.objects.all()
-    context = {"num_plato":num_plato}
+    context = {"num_plato":num_plato} 
     return render(request, 'totem/TotemVerMenu.html',context)
 
 def mesaTotem(request, id):
     mesa = f'mesa{id}.png'
-
     return render(request, template_name="totem/TotemQRMesa.html",context = {"mesa":mesa} )
 
+def qrReservarMesaTotem (request):
+    domain = request.META['HTTP_HOST']
+    dataQr = domain + "/totem/reservar"
+    img = qrcode.make(dataQr)
+    img.save('static/reservar.png')
+    return render(request, template_name = "totem/TotemQRReservarMesa.html")
+
+class reservaMesaTotem(SuccessMessageMixin, CreateView):
+    model = ReservaMesa
+    form = ReservaMesa
+    fields = ["id_mesa","nombre","apellido","rut","correo","telefono","comentario", "fecha_reserva"]
+    success_message = 'Reserva realizada correctamente, revise su correo'
+    def get_success_url(self):
+        return reverse("totem_reservado")
+    def get_form(self, form_class=None):
+        form = super(reservaMesaTotem, self).get_form(form_class)
+        form.fields['fecha_reserva'].widget = DateTimeInput(attrs={'type':'datetime-local'})
+        return form
+    
+def reservaHecha(request):
+    return render(request, template_name = "totem/TotemReservaHecha.html")
+#TOTEM ↑↑↑
 #CRUD Insumo ↓↓↓
 class InsumoListado(ListView): 
     model = Insumo   
@@ -186,7 +210,7 @@ class PlatoDetalle(DetailView):
 class PlatoCrear(SuccessMessageMixin, CreateView): 
     model = Plato
     form = Plato
-    fields = ["nombre","descripcion","precio","disponibilidad","imagen_producto","ingredientes",] #parametros de la clase a crear, no está la ID ya que es automatica
+    fields = ["nombre","descripcion","precio","disponibilidad","imagen_producto","ingredientes","puntuacion"] #parametros de la clase a crear, no está la ID ya que es automatica
     success_message = 'Plato creada correctamente !' # Mostramos este Mensaje luego de Crear un Plato
  
     # Redireccionamos a la página de listado luego de crear un registro de Plato
@@ -273,6 +297,7 @@ el usuario cocina en su sesión.
 def verCarrito(request):
     user = request.user
     pedido = PedidoPlato()
+    subtotal = 0
 
     #Comprobador para saber si existe un 
     try:
@@ -280,6 +305,10 @@ def verCarrito(request):
     except pedido.DoesNotExist:
         return render(request = request, template_name = "pedido/VerCarrito.html")
     platos_pedidos = DetallePedidoPlato.objects.filter(id_pedido = pedido)
+    for plato in platos_pedidos:
+        precio = plato.id_plato.precio
+        cantidad = plato.cantidad
+        subtotal += precio * cantidad
     if request.method == 'POST' and 'pedir' in request.POST and pedido != None:
         for plato in platos_pedidos:
             plato.estado = "ped"
@@ -290,7 +319,7 @@ def verCarrito(request):
         return redirect('totem_vermenu')
 
 
-    return render(request = request, template_name = "pedido/VerCarrito.html", context={"pedido":pedido,"platos_pedidos":platos_pedidos})
+    return render(request = request, template_name = "pedido/VerCarrito.html", context={"pedido":pedido,"platos_pedidos":platos_pedidos, "subtotal":subtotal})
 
 class carritoBorrar(SuccessMessageMixin, DeleteView):
     model = DetallePedidoPlato
@@ -348,3 +377,4 @@ def verPedidos(request):
                 return render(request = request, template_name = "cocina/VerComandas.html", context = {"pedidos":pedidos})
 
     return render(request = request, template_name = "cocina/VerComandas.html", context = {"pedidos":pedidos})
+

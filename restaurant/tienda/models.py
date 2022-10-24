@@ -8,9 +8,14 @@ class Mesa(models.Model):
 	id_mesa = models.AutoField(
 		primary_key=True,
 		db_column = 'ID_MESA')
+
 	cantidad_personas = models.IntegerField()
+
 	disponibilidad = models.BooleanField(default=True)
 	
+	def __str__(self):
+		return f'{self.id_mesa}'
+
 
 	class Meta:
 		managed = False
@@ -117,3 +122,43 @@ class DetallePedidoPlato(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'DETALLE_PEDIDO_PLATO'
+
+class ReservaMesa(models.Model):
+	id_reserva = models.AutoField(
+		primary_key = True,
+		db_column = 'ID_RESERVA'
+		)
+
+	id_mesa = models.ForeignKey(
+		Mesa,
+		on_delete = models.CASCADE,
+		db_column = 'ID_MESA_ID',
+		blank = True)
+
+	nombre = models.CharField(max_length = 25)
+
+	apellido = models.CharField(max_length = 25)
+
+	rut = models.CharField(max_length = 12)
+
+	correo = models.EmailField()
+
+	telefono = models.IntegerField()
+
+	comentario = models.TextField(
+		blank = True,
+		null = True
+		)
+
+	fecha_reserva = models.DateTimeField()
+
+	def __str__(self):
+		return f'Reserva N° {self.id_reserva} | Nombre: {self.nombre} {self.apellido} '
+
+	class Meta:
+		managed = True
+		db_table = 'RESERVA_MESA'
+
+
+
+
