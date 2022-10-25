@@ -16,6 +16,3 @@ pip install django-widget-tweaks
 
 
 pip install django-sesame (cambiando el parámetro "pk" por defecto al nuevo del modelo de usuario personalizado)
-
-
-pip install qrcode
