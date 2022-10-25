@@ -1,0 +1,61 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.rol == "coc" or user.rol == "admin" %}
+
+{% load widget_tweaks %}
+{{ form.errors }}
+<section id="galeria" class="container">
+        <div >
+          {% if user.rol != "mesa" %}
+          <div align="left">
+            <a class = " btn btn-primary" href="{% url 'totem_inicio'%}" >Volver</a> 
+              {{ formset.management_form }}
+  {{ formset.errors }}
+  {{ formset.non_field_errors }}
+  {{ formset.non_form_errors }}
+          </div>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <h1> Usuario: {{user.primer_nombre}}</h1>
+          {% endif %}
+            <h1 align="center">Comandas pendientes </h1>
+          
+            
+        </div>
+
+        <div class="row">
+          {% for comanda in pedidos %}
+          {% load static %}
+          <div class="col-lg-4">
+            <div class="card">
+              <img class="card-img-top" src="{% get_media_prefix %}{{comanda.id_plato.imagen_producto}}">
+              <div class="card-body">
+                <h4 class="card-title"> {{ comanda.id_plato.nombre }}</h4>
+                <p class="card-text"><h3>{{ comanda.id_pedido.id_mesa.primer_nombre}}</h3> </p>
+                <p class="card-text"><h3>Cantidad: {{ comanda.cantidad }}</h3> </p>
+                <p class="card-text"><h3>Estado del pedido: {{ comanda.estado }}</h3></p>
+                <p class="card-text"><h3>Cambiar estado a:</h3></p>
+                <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id_plato" value="{{comanda.id_plato.id_plato}}">
+                <input type="hidden" name="id_detalle_pedido" value="{{comanda.id_detalle_pedido}}">
+                {% if comanda.estado == "ped" %} 
+                <button class="btn btn-success" type="submit">Preparando</button>
+                {% elif comanda.estado == "pre" %}
+                <button class="btn btn-success" type="submit">Listo para servir</button>
+                {% endif %}
+                </form>
+        
+      
+              </div>
+            </div>
+          </div>         
+          {% endfor %}
+        </div>
+  </section>
+
+{% else %}
+FORBIDDEN!
+{% endif%}
+{% endblock %}

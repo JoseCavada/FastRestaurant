@@ -26,9 +26,9 @@ SECRET_KEY = 'django-insecure-li=_6h$(x(p@=cn!jph$5zb-r!9o@cnl%n0h(r$a49f_z*79z7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
-
+CSRF_TRUSTED_ORIGINS = ['https://1acc-201-189-46-59.sa.ngrok.io']
 # Application definition
 
 INSTALLED_APPS = [
@@ -70,6 +70,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "sesame.backends.ModelBackend",
 ]
 
 WSGI_APPLICATION = 'restaurant.wsgi.application'
@@ -126,7 +131,7 @@ USE_TZ = True
 
 # Ruta de redirecinamiento por defecto al interactuar con login y logout
 LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'principal'
 
 
 # Static files (CSS, JavaScript, Images)

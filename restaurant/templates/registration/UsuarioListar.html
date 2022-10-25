@@ -1,45 +1,52 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-{% if user.rol == "adm" or user.rol == "bod" %}
+{% if user.rol == "adm" %}
 
 {% load widget_tweaks %}
 <div>
   <h1>
-    Insumos
+    Usuarios
   </h1>
 </div>
 <br>
 <div align="left" class="btn_crear mb-3">
-  <a href="crear" type="button" class="btn btn-primary">Crear</a>
+  <a href="{% url 'register' %}" type="button" class="btn btn-primary">Crear</a>
 </div>
  
 <table class="table table-striped table-hover">
   <thead>
-    <tr>
-      <th>Id</th>
-      <th>Nombre</th>
-      <th>Cantidad</th>
+    <tr">
+      <th>Id usuario</th>
+      <th>Nombre de usuario</th>
+      <th>Primer nombre</th>
+      <th>Primer Apellido</th>
+      <th>Correo</th>
+      <th>Rol</th>
     </tr>
   </thead>
   <tbody>
   
   <!-- Recorremos los objetos o registros que tenemos en nuestra tabla 'Insumo' y los listamos -->
-  {% for Insumo in object_list %}
+  {% for MyUser in object_list %}
     <tr>
-      <td>{{ Insumo.id_insumo }}</td>
-      <td>{{ Insumo.nombre }}</td>
-      <td>{{ Insumo.cantidad }}</td>
+      <td>{{ MyUser.id_user }}</td>
+      <td>{{ MyUser.nombre_usuario }}</td>
+      <td>{{ MyUser.primer_nombre }}</td>
+      <td>{{ MyUser.primer_apellido }}</td>
+      <td>{{ MyUser.correo }}</td>
+      <td>{{ MyUser.rol }}</td>
       <td>
  
         <!-- Usaremos un formulario que realizará la tarea de eliminar un registro de Insumo desde la misma tabla HTML -->                        
-        <form method="POST" action="eliminar/{{Insumo.id_insumo}}">
+        <form method="POST" action="eliminar/{{MyUser.id_user}}">
           {% csrf_token %}
           <div class="btn-group">
  
-            <!-- Creamos 3 botones que son ver, Editar y Eliminar, nos sirven para gestionar nuestros registros de Insumo -->
-            <a href="detalle/{{Insumo.id_insumo}}" title="Ver" type="button" class="btn btn-success">Ver </a>
-            <a href="editar/{{Insumo.id_insumo}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
+            <!-- Creamos 2 botones que son ver  y Eliminar, nos sirven para gestionar nuestros registros de Insumo -->
+            
+            <a href="detalle/{{MyUser.id_user}}" title="Ver" type="button" class="btn btn-success">Ver </a>
+           <!--- <a href="editar/{{MyUser.id_mesa}}" title="Editar" type="button" class="btn btn-primary">Editar </a> --->
             <button class="btn btn-danger" onclick="return eliminar();" type="submit">
               Eliminar
             </button>
@@ -53,19 +60,18 @@
   </tbody>
 </table>
     {% if is_paginated %}
-        <div  class="pagination center" >
-            <span class="page-links " >
+        <div  class="pagination" >
+            <span class="page-links" >
 
-                <span class="page-current ">
+                <span class="page-current" >
                      {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
                 </span>
-                <br>
                 {% if page_obj.has_previous %}
                 
-                    <a class = "white" href="{% url 'listar_insumo' %}?page={{ page_obj.previous_page_number }}"><<<</a>
+                    <a class = "white" href="{% url 'listar_usuario' %}?page={{ page_obj.previous_page_number }}"><<<</a>
                 {% endif %} 
                 {% if page_obj.has_next %}
-                    <a class = "white" href="{% url 'listar_insumo' %}?page={{ page_obj.next_page_number }}">>>></a>
+                    <a class = "white" href="{% url 'listar_usuario' %}?page={{ page_obj.next_page_number }}">>>></a>
                 {% endif %}
             </span>
         </div>
@@ -73,7 +79,7 @@
     <!-- script que envía una alerta para confirmar la eliminación del Insumo -->
     <script type="text/javascript">
       function eliminar() {
-        var x = confirm("Eliminar Producto ?");
+        var x = confirm("Eliminar usuario ?");
         if (x)
           return true;
         else

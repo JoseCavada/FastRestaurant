@@ -16,4 +16,20 @@ tienda/migrations/__pycache__/0002_alter_mesa_options_alter_plato_options.cpytho
 tienda/migrations/__pycache__/__init__.cpython-310.pyc
 tienda/__pycache__/
 tienda/migrations/
+restaurant/media/platos/Cazuela_de_pollo.jpg
+restaurant/media/platos/Cazuela_de_pollo_m94kKBX.jpg
+restaurant/media/platos/Lasagna.png
+restaurant/media/platos/Pescado_frito_con_papas_fritas.png
+restaurant/media/platos/Pizza.png
+restaurant/media/platos/Pollo_arvejado_con_arroz.png
+restaurant/media/platos/Raviolis.png
+restaurant/media/platos/arroz_32bhyjS.png
+restaurant/media/platos/arroz_DJS3ECr.png
+restaurant/media/platos/huevo_frito_xOvzoF8.jpg
+restaurant/modelos incompletos.py
+restaurant/static/menu.png
+restaurant/static/mesa3.png
+restaurant/static/mesa4.png
+restaurant/static/reservar.png
+
 

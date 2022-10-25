@@ -15,7 +15,9 @@
 	{% if user.rol == "bod" %}
 		<p>Rol de usuario es bodega</p>
 	{% endif %}
+	{% if user.rol == "mesa" %}
+		<h1>Pidiendo platos a {{user.primer_nombre}}</h1>
+	{% endif %}
 
 {% endif %}
-<p>hola mundo, pagina principal a definir</p>
 {% endblock %}

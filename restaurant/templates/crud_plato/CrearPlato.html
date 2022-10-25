@@ -1,0 +1,57 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.rol == "adm" or user.rol == "bod" %}
+        
+{% load widget_tweaks %}
+<div class="formulario" align="left">
+    <h4>Crear</h4>
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<!-- {{ form.as_p }}  -->
+<div class="form-group">
+    <label for="nombre" class="txt_negrita">Nombre</label>
+    <input type="text" name="nombre" value="" class="form-control">
+</div>
+<div class="form-group">
+    <label for="descripcion" class="txt_negrita">Descripción</label>
+    <input type="text" name="descripcion" value="" class="form-control">
+</div>
+<div class="form-group">
+    <label for="number" class="txt_negrita">Precio</label>
+    <input type="text" name="precio" value="" class="form-control">
+</div>
+<div class="form-group">
+    <label for="puntuacion" class="txt_negrita">Nivel de prioridad</label>
+    <input type="number" name="puntuacion" value="" class="form-control">
+</div>
+<div class="form-group">
+    <label for="disponibilidad" class="txt_negrita">Disponibilidad</label>
+    {{ form.disponibilidad|add_class:"form-control" }}
+</div>
+<div class="form-group">
+    <label for="ingredientes" class="txt_negrita">Ingredientes</label>
+    <p>Seleccione con CTRL todos los ingredientes que posee el plato:</p>
+    {{ form.ingredientes|add_class:"form-control mb-3" }}
+    {% for ingrediente in form.all %}
+    <label  for="ts1">{{ingrediente}}</label>
+    <input type="checkbox" name="products" value="{{ ingrediente.ingrediente }}" />
+    {% endfor %}
+
+
+
+</div>
+<div class="form-group">
+    <label for="imagen_producto" class="txt_negrita">Imagen</label>
+    <input type="file" name="imagen_producto" class="form-control mb-3">
+</div>
+
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+    <a href="{% url  'listar_plato'%}" type="submit" class="btn btn-primary">Cancelar</a>
+</form>
+
+</div>
+
+{% else %}
+FORBIDDEN!
+{% endif%}
+{% endblock %}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% block title %}<title>FastRestaurant</title>{% endblock %}
+	{% load static %}
+	{# Cargamos la librería #}
+    {% load bootstrap4 %}
+ 	
+    {# CSS Bootstrap #}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css\estilos.css' %}">
+</head>
+<body>
+	{% include 'messages.html' %}
+  	<div >
+  		<h1>Reserva mesa</h1>
+    	<form method="POST" enctype="multipart/form-data" >
+  		<!--# Pasamos el 'csrf_token' de seguridad para poder crear un nuevo registro -->
+  {% csrf_token %}
+  {% load widget_tweaks %}
+  
+  <!-- {{ form.as_p }} -->
+  				<div class="form-group">
+    				<label for="id_mesa" class="txt_negrita">Mesa a reservar</label>
+    				{{ form.id_mesa|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  				</div>
+  				<h4>Datos de quien reserva:</h4>
+  				<div class="form-group">
+    				<label for="nombre" class="txt_negrita">Nombre</label>
+    				{{ form.nombre|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  				</div>
+
+  				<div class="form-group">
+    				<label for="apellido" class="txt_negrita">Apellido</label>
+    				{{ form.apellido|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  				</div>
+
+  				<div class="form-group">
+    				<label for="rut" class="txt_negrita">Rut</label>
+    				{{ form.rut|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  				</div>
+
+  				<div class="form-group">
+    				<label for="correo" class="txt_negrita">Correo</label>
+    				{{ form.correo|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  				</div>
+
+  				<div class="form-group">
+    				<label for="telefono" class="txt_negrita">Telefono</label>
+    				{{ form.telefono|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  				</div>
+
+  				<div class="form-group">
+    				<label for="fecha_reserva" class="txt_negrita">Fecha a reservar</label>
+    				{{ form.fecha_reserva|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  				</div>
+
+  				<div class="form-group">
+    				<label for="comentario" class="txt_negrita">Comentario/indicaciones especiales</label>
+    				{{ form.comentario|add_class:"form-control" }} <!-- Usamos la librería 'widget_tweaks' para crear esta caja de texto -->
+  				</div>
+
+  				<button type="submit" class="btn btn-primary">Aceptar</button>
+  				<a href="{% url 'totem_inicio' %}" type="submit" class="btn btn-primary">Volver</a>
+ 
+		</form>
+    
+  	</div>
+
+	
+
+
+</body>
+
+	{% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
+
+	{% block content %}<!-- default content text (typically empty) -->{% endblock %}
+	
+	{# JS y jQuery Bootstrap #}
+    {% bootstrap_javascript jquery='full' %} 
+</html>

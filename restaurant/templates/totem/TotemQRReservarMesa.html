@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% block title %}<title>FastRestaurant</title>{% endblock %}
+	{% load static %}
+	{# Cargamos la librería #}
+    {% load bootstrap4 %}
+ 
+    {# CSS Bootstrap #}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css\estilos.css' %}">
+</head>
+<body>
+  <div align="center">
+    <h1>Escanea este código QR para reservar una mesa</h1>
+    <img src="{% static 'reservar.png'%}">
+    <div align="center">
+            <a class = " btn btn-primary" href="{% url 'totem_inicio'%}" >Página Principal</a> 
+    </div>
+  </div>
+
+	
+
+
+</body>
+{% include 'messages.html' %}
+	{% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
+
+	{% block content %}<!-- default content text (typically empty) -->{% endblock %}
+	
+	{# JS y jQuery Bootstrap #}
+    {% bootstrap_javascript jquery='full' %} 
+</html>
+</html>

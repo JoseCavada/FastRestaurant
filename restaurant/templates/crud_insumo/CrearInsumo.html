@@ -1,9 +1,13 @@
 {% extends "base_generic.html" %}
 {% block content %}
-{% if user.rol == "adm" %}
+{% if user.rol == "adm" or user.rol == "bod" %}
 
 {% load widget_tweaks %}
-	 
+<div>
+  <h1>
+    Creación de insumo
+  </h1>
+</div>
 <form method="post" enctype="multipart/form-data" >
   
   <!--# Pasamos el 'csrf_token' de seguridad para poder crear un nuevo registro -->
