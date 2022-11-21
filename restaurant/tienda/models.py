@@ -1,13 +1,14 @@
 from django.db import models
 from account.models import MyUser
 
+
 # Create your models here.
 
 
 class Mesa(models.Model):
 	id_mesa = models.AutoField(
 		primary_key=True,
-		db_column = 'ID_MESA')
+		)#db_column = 'ID_MESA')
 
 	cantidad_personas = models.IntegerField()
 
@@ -18,13 +19,13 @@ class Mesa(models.Model):
 
 
 	class Meta:
-		managed = False
-		db_table = 'MESA'
+		managed = True
+		#db_table = 'MESA'
 
 class Insumo(models.Model):
 	id_insumo = models.AutoField(
 		primary_key=True,
-		db_column = 'ID_INSUMO')
+		)#db_column = 'ID_INSUMO')
 	nombre = models.CharField(max_length=255)
 	cantidad = models.IntegerField()
 
@@ -36,12 +37,12 @@ class Insumo(models.Model):
 		
 	class Meta:
 		managed = True
-		db_table = 'INSUMO'
+		#db_table = 'INSUMO'
 
 class Plato(models.Model):
 	id_plato = models.AutoField(
 		primary_key=True,
-		db_column = 'ID_PLATO')
+		)#db_column = 'ID_PLATO')
 	nombre = models.CharField(max_length=255)
 	descripcion = models.CharField(max_length=255)
 	precio = models.IntegerField()
@@ -61,22 +62,23 @@ class Plato(models.Model):
 
 	class Meta:
 		managed = True
-		db_table = 'PLATO'
+		#db_table = 'PLATO'
 
 class PedidoPlato(models.Model):
 	id_pedido = models.AutoField(
 		primary_key = True,
-		db_column = 'ID_PEDIDO')
+		)#db_column = 'ID_PEDIDO')
 
 	id_mesa = models.ForeignKey(
 		MyUser,
 		on_delete = models.CASCADE,
-		db_column = 'ID_MESA' )	
+		)#db_column = 'ID_MESA' )	
 
 	estado = models.BooleanField(
 		default = False)
 
-
+	pagado = models.BooleanField(
+		default = False)
 	fecha_pedido_plato = models.DateTimeField(auto_now_add = True)
 
 	def __str__(self):
@@ -84,23 +86,23 @@ class PedidoPlato(models.Model):
 
 	class Meta:
 		managed = True
-		db_table = 'PEDIDO_PLATO'
+		#db_table = 'PEDIDO_PLATO'
 
 
 class DetallePedidoPlato(models.Model):
 	id_detalle_pedido = models.AutoField(
 		primary_key = True,
-		db_column = 'ID_DETALLE_PEDIDO')
+		)#db_column = 'ID_DETALLE_PEDIDO')
 	id_pedido = models.ForeignKey(
 		PedidoPlato,
 		on_delete = models.CASCADE,
-		db_column = 'ID_PEDIDO',
+		#db_column = 'ID_PEDIDO',
 		blank = True)
 
 	id_plato = models.ForeignKey(
 		Plato,
 		on_delete = models.CASCADE,
-		db_column = 'ID_PLATO')
+		)#db_column = 'ID_PLATO')
 
 	cantidad = models.IntegerField()
 
@@ -108,7 +110,8 @@ class DetallePedidoPlato(models.Model):
 		('pen','pendiente'),
 		('ped','pedido'),
 		('pre','preparando'),
-		('lis','listo'),)
+		('lis','listo'),
+		('pag', 'pagado'))
 	estado = models.CharField(
 		verbose_name = "estado",
 		choices = ENUM_ESTADO,
@@ -119,20 +122,21 @@ class DetallePedidoPlato(models.Model):
 
 	def __str__(self):
 		return f'ID: {self.id_detalle_pedido} | Pedido N°{self.id_pedido} | Plato: {self.id_plato} | Cantidad {self.cantidad} | Estado {self.estado}'
+
 	class Meta:
 		managed = True
-		db_table = 'DETALLE_PEDIDO_PLATO'
+		#db_table = 'DETALLE_PEDIDO_PLATO'
 
 class ReservaMesa(models.Model):
 	id_reserva = models.AutoField(
 		primary_key = True,
-		db_column = 'ID_RESERVA'
+		#db_column = 'ID_RESERVA'
 		)
 
 	id_mesa = models.ForeignKey(
 		Mesa,
 		on_delete = models.CASCADE,
-		db_column = 'ID_MESA_ID',
+		#db_column = 'ID_MESA_ID',
 		blank = True)
 
 	nombre = models.CharField(max_length = 25)
@@ -157,7 +161,7 @@ class ReservaMesa(models.Model):
 
 	class Meta:
 		managed = True
-		db_table = 'RESERVA_MESA'
+		#db_table = 'RESERVA_MESA'
 
 
 
