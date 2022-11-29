@@ -3,11 +3,14 @@
 {% if user.rol == "adm" or user.rol == "bod" %}
         
 {% load widget_tweaks %}
-<div class="formulario" align="left">
-    <h4>Crear</h4>
+<h1 style="margin-left: 30px ;">Crear</h1>
+    <hr>
+<div style="margin-left: 30px ; margin-right:80%" class="formulario" align="left">
+    
 <form method="post" enctype="multipart/form-data">
 {% csrf_token %}
 <!-- {{ form.as_p }}  -->
+
 <div class="form-group">
     <label for="nombre" class="txt_negrita">Nombre</label>
     <input type="text" name="nombre" value="" class="form-control">

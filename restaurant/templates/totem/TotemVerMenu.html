@@ -20,7 +20,13 @@
     <div>
       <a class="white" href="{% url 'ver_carrito' %}">Ver pedido</a> 
     </div>
+    {% if boton_pago == True %}
+    <div>
+      <a class="btn btn-success align-right" href="{% url 'boton_pago' %}" > Pagar</a>
+    </div>
+    {% endif %}
   </nav>
+  {% include 'messages.html' %}
   {% endif %}
   {% endblock %}  
 </header>	
@@ -66,7 +72,7 @@
   </section>
 
 </body>
-{% include 'messages.html' %}
+
 	{% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
 
 	{% block content %}<!-- default content text (typically empty) -->{% endblock %}

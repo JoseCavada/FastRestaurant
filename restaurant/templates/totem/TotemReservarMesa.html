@@ -15,8 +15,10 @@
 <body>
 	{% include 'messages.html' %}
   	<div >
-  		<h1>Reserva mesa</h1>
-    	<form method="POST" enctype="multipart/form-data" >
+  		<h1 class="margen">Reserva mesa</h1>
+		  <hr>
+		  
+    	<form style="margin-left:30px;margin-right: 80%;"method="POST" enctype="multipart/form-data" >
   		<!--# Pasamos el 'csrf_token' de seguridad para poder crear un nuevo registro -->
   {% csrf_token %}
   {% load widget_tweaks %}

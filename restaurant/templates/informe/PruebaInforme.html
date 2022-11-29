@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.rol == "adm" or user.rol == "fin" %}
+
+<h1 class="margen">Informacion del Sistema Interno</h1>
+<hr>
+<p class="margenL"> La cantidad de platos es :  {{informe}} </p>
+<p class="margenL"> La cantidad de insumos es : {{informe2}} </p>
+<p class="margenL"> El Total diario ganado es : ${{totalDiario}} </p>
+
+
+<a style="margin: 30px ;" href="{% url 'index' %}" type="submit" class="btn btn-primary">Volver</a>
+
+{%  endif%}
+{% endblock%}

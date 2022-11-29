@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+	<div>
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Cantidad</th>
+					<th>Precio unitario</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in platos %}
+				<tr>
+					<td> {{item.title}} </td>
+					<td> {{item.quantity}} </td>
+					<td> ${{item.unit_price}} </td>
+					<td> ${% widthratio item.quantity 1 item.unit_price %} </td>
+				</tr>
+				{% endfor%}
+				<tr>
+					<td></td>
+					<td></td>
+					<td> <b>Total a pagar</b> </td>
+					<td> ${{aPagar}} </td>
+				</tr>
+			</tbody>
+		</table>
+		<div style="align-content: right;">
+			<div class="cho-container">
+				
+			</div>
+		</div>
+		<script>
+  		const mp = new MercadoPago('TEST-7e058cd1-7d39-48b8-a752-723bc6ebbd0d', {
+    		locale: 'es-CL'
+  		});
+
+  		mp.checkout({
+    		preference: {
+      		id: '{{preferencia}}'
+    		},
+    		render: {
+      		container: '.cho-container',
+      		label: 'Pagar',
+    		}
+  		});
+		</script>
+	</div>
+{% endblock %}

@@ -5,11 +5,12 @@
 
 {% load widget_tweaks %}
 <div>
-  <h1>
+  <h1 class="margen">
     Editar insumo
   </h1>
+  <hr>
 </div>
-<form method="post" enctype="multipart/form-data">
+<form style="margin-left:30px;margin-right: 80%;"method="post" enctype="multipart/form-data">
   {% csrf_token %}
   
   <!-- {{ form.as_p }} -->
@@ -20,10 +21,11 @@
   <div class="form-group">
     <label for="precio" class="txt_negrita">Cantidad</label>
     {{ form.cantidad|add_class:"form-control" }}
- 
+  </div>
+
   <button type="submit" class="btn btn-primary">Aceptar</button>
   <a href="{% url 'listar_insumo' %}" type="submit" class="btn btn-primary">Volver</a>
- 
+  
 </form>
 {% else %}
 FORBIDDEN!

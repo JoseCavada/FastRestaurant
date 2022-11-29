@@ -4,11 +4,12 @@
 
 {% load widget_tweaks %}
 <div>
-  <h1>
+  <h1 class="margen">
     Creación de mesa
   </h1>
+  <hr>
 </div>
-<form method="POST" enctype="multipart/form-data" >
+<form style="margin-left:30px;margin-right: 80%;" method="POST" enctype="multipart/form-data" >
   
   <!--# Pasamos el 'csrf_token' de seguridad para poder crear un nuevo registro -->
   {% csrf_token %}

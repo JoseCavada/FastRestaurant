@@ -39,7 +39,7 @@
       <td> {{ plato.cantidad }} </td>
       <td>{{plato.id_plato.precio}} </td>
       {% load static %}
-      <td> <img src="{% get_media_prefix %}{{plato.id_plato.imagen_producto}}" class="img-fluid">  </td>
+      <!-- <td> <img src="{% get_media_prefix %}{{plato.id_plato.imagen_producto}}" class="img-fluid">  </td> -->
       <td> {% widthratio plato.cantidad 1 plato.id_plato.precio %} </td>
 
       <td>

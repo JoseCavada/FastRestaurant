@@ -1,14 +1,26 @@
 {% extends "base_generic.html" %}
 {% block content %}
 {% if user.rol == "adm" or user.rol == "bod" %}
-<div class="formulario" align="center">
-<h4>Detalles insumo</h4>
- 
-<p><span class="txt_negrita"> Id:</span> <br>  {{object.id_insumo}}</p>
-<p><span class="txt_negrita"> Nombre:</span> <br>  {{object.nombre}}</p>
-<p><span class="txt_negrita"> Cantidad:</span> <br>  {{object.cantidad}}</p>
+<div class="formulario" >
+    <h1 class="margen" >Detalles insumo</h1>
+    <hr>
+    <table class="margenL">
+        <tr>
+            <td class="txt_negrita">Id:</td>
+            <td style="text-align: center;">{{object.id_insumo}}</td>
+        </tr>
+        <tr>
+            <td class="txt_negrita">Nombre:</td>
+            <td style="text-align: center;">{{object.nombre}}</td>
+        </tr>
+        <tr>
+            <td class="txt_negrita">Cantidad:</td>
+            <td style="text-align: center;">{{object.cantidad}}</td>
+        </tr>
+</table>
+<br>
 <!-- Botón para volver a la vista principal (Home) -->
- <a href="{% url 'listar_insumo' %}" type="submit" class="btn btn-primary">Volver</a>
+ <a style="margin: 30px ;" href="{% url 'listar_insumo' %}" type="submit" class="btn btn-primary">Volver</a>
 </div>
 {% else %}
 FORBIDDEN!

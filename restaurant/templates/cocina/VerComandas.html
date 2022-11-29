@@ -9,7 +9,7 @@
         <div >
           {% if user.rol != "mesa" %}
           <div align="left">
-            <a class = " btn btn-primary" href="{% url 'totem_inicio'%}" >Volver</a> 
+            
               {{ formset.management_form }}
   {{ formset.errors }}
   {{ formset.non_field_errors }}
@@ -34,7 +34,9 @@
                 <h4 class="card-title"> {{ comanda.id_plato.nombre }}</h4>
                 <p class="card-text"><h3>{{ comanda.id_pedido.id_mesa.primer_nombre}}</h3> </p>
                 <p class="card-text"><h3>Cantidad: {{ comanda.cantidad }}</h3> </p>
-                <p class="card-text"><h3>Estado del pedido: {{ comanda.estado }}</h3></p>
+                <p class="card-text"><h3> {% if comanda.estado == 'ped' %} Estado del pedido: Pedido  {%endif%}
+                  {% if comanda.estado == 'pre' %} Estado del pedido: Preparando  {%endif%} 
+                  </h3></p>
                 <p class="card-text"><h3>Cambiar estado a:</h3></p>
                 <form method="POST">
                 {% csrf_token %}
