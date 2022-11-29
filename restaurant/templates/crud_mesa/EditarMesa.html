@@ -5,11 +5,12 @@
 
 {% load widget_tweaks %}
 <div>
-  <h1>
+  <h1 class="margen">
     Editar mesa
   </h1>
+  <hr>
 </div>
-<form method="post" enctype="multipart/form-data">
+<form style="margin-left:30px;margin-right: 80%;"method="post" enctype="multipart/form-data">
   {% csrf_token %}
   
   <!-- {{ form.as_p }} -->

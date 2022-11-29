@@ -4,7 +4,9 @@ from .views import InsumoListado, InsumoCrear, InsumoDetalle, InsumoActualizar, 
 from .views import MesaListado, MesaCrear, MesaDetalle, MesaActualizar, MesaEliminar
 from .views import PlatoListado, PlatoDetalle, PlatoCrear,PlatoActualizar, PlatoEliminar
 from .views import agregarCarrito, verCarrito, carritoBorrar, carritoEditar
+from .views import GenerarInforme
 from .views import verPedidos
+from .views import mercadopago_checkout, pagoRealizado
 urlpatterns=[
 	path('',views.index, name = 'index'),
 #urls de crud insumo ↓↓↓
@@ -31,8 +33,15 @@ urlpatterns=[
 	path('pedir/carro/eliminar/<int:pk>',carritoBorrar.as_view(), name = 'eliminar_del_carrito'),
 	path('pedir/carro/editar/<int:pk>', views.carritoEditar, name = "editar_carrito"),
 #url cocina ↓↓↓
-	path('comanda/listar', views.verPedidos, name = "verComandass")
+	path('comanda/listar', views.verPedidos, name = "verComandass"),
+#url cocina ↑↑↑
+#url mercadopago ↓↓↓
+	path('pagar', views.mercadopago_checkout, name = "boton_pago"),
+	path('pagado', views.pagoRealizado, name = "pago_realizado"),
+#url mercadopago ↑↑↑
 
+#url informe ↓↓↓
+	path('informe', views.GenerarInforme, name="informe")
 
 
 ]

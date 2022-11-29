@@ -18,6 +18,11 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.contrib.admin.widgets import AdminSplitDateTime
 from django.forms.widgets import  DateTimeInput
+import json
+
+import mercadopago
+
+sdk = mercadopago.SDK("TEST-4563605199678853-111816-ea7136dc430bc360cccb1b54ce59ef38-146275990")
 
 # Create your views here.
 
@@ -67,9 +72,24 @@ def qrpantalla(request):
 
 def menuTotem(request):
     num_plato = Plato.objects.all()
-    context = {"num_plato":num_plato} 
-    return render(request, 'totem/TotemVerMenu.html',context)
 
+    user = request.user
+    pedido = PedidoPlato()
+    boton_pago = False
+
+    try:
+        pedido = PedidoPlato.objects.filter(id_mesa = user, pagado = False).first()
+        platos = DetallePedidoPlato.objects.filter(id_pedido = pedido, estado = "lis").count()
+        if platos > 0:
+            boton_pago = True
+        print(boton_pago)
+    except pedido.DoesNotExist:
+        boton_pago = False
+        print(boton_pago)
+
+
+
+    return render(request, 'totem/TotemVerMenu.html',context={"num_plato":num_plato,"boton_pago":boton_pago})
 def mesaTotem(request, id):
     mesa = f'mesa{id}.png'
     return render(request, template_name="totem/TotemQRMesa.html",context = {"mesa":mesa} )
@@ -330,6 +350,99 @@ class carritoBorrar(SuccessMessageMixin, DeleteView):
         success_message = 'Plato eliminado correctamente!' # Mostramos este Mensaje luego de eliminar una Mesa  
         messages.success (self.request, (success_message))
         return reverse('ver_carrito')
+#Mercadopago ↓↓↓
+def mercadopago_checkout(request, **kwargs):
+
+
+    user = request.user
+    items=[]
+    total = 0
+    pedidos = PedidoPlato.objects.filter(id_mesa = user, pagado= False)
+    for pedido in pedidos:
+        platos = DetallePedidoPlato.objects.filter(id_pedido = pedido, estado = "lis")
+
+        for item in platos:
+
+            nomProducto = str(item.id_plato.nombre)
+            print(item.id_plato.nombre)
+            cantProducto = int(item.cantidad)
+            print(item.cantidad)
+            precProducto = int(item.id_plato.precio)
+            print(item.id_plato.precio)
+            monArt = 'CLP'
+            datos = {'title':nomProducto, 'quantity':cantProducto, 'currency_id':monArt, 'unit_price':precProducto}
+            items.append(datos)
+            total += datos['unit_price'] * datos['quantity']
+
+    preference_data = {
+                "items": items,
+
+                "back_urls": { 
+                                "success": "http://localhost:8000/tienda/pagado",
+                                "failure": "http://www.failure.com",
+                                "pending": "http://www.pending.com"
+                                
+                },
+
+                "auto_return": "approved",
+            }    
+
+    preference_response = sdk.preference().create(preference_data)
+    print(preference_response)
+    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    print(preference_response['response']['id'])
+    print(total)
+    preference = preference_response['response']['id']
+    #preference_id = preference_response["id"]
+    return render(request = request, template_name = "mercadopago/PagarBoton.html", context={"preferencia":preference, "platos":items,"aPagar":total})
+
+def pagoRealizado(request):
+    '''
+    Redirigir a este link, comprueba con GET el estado en el URL, si es exitoso, cierra
+    sesión y modifica estado en la base de datos de los platos a pagado. Modo de hacer la
+    boleta aún en discución.
+    Posibilidad de página diciendo pago exitoso, quizas cambiar el deslog para recibir
+    parámetros, puede ser
+    '''
+    user = request.user
+
+    mesa =  user.primer_nombre.lower()
+    mesa = mesa.strip()
+    print(mesa)
+    if request.GET.get('collection_status',"approved"):
+        ''' 
+        Tiene que cambiar la contraseña del usuario mesa, así te fuerza a cerrar la sesión.
+        Tambien borrar la imagen correspondiente y cambiar el estado de los platos a pagado
+        para que así no le aparezcan a la siguiente persona que pida la mesa.
+        '''
+        #os.rmdir(f'static/{mesa}.png')
+        pedidos = PedidoPlato.objects.filter(id_mesa = user, pagado= False)
+
+        clave = MyUser.objects.make_random_password(length=8, allowed_chars='123456789')
+
+        for pedido in pedidos:
+
+            platos = DetallePedidoPlato.objects.filter(id_pedido = pedido, estado = "lis")
+            pedido.pagado=True
+            pedido.save()
+            for plato in platos:
+
+                plato.estado="pag"
+                plato.save()
+
+        user.password = clave
+        user.save()
+        
+
+
+
+    return render(request = request, template_name = "mercadopago/PagoRealizado.html")
+
+def pagoNoExitoso():
+    pass
+
+
+
 
 def carritoEditar(request, pk):
     user = request.user
@@ -377,4 +490,23 @@ def verPedidos(request):
                 return render(request = request, template_name = "cocina/VerComandas.html", context = {"pedidos":pedidos})
 
     return render(request = request, template_name = "cocina/VerComandas.html", context = {"pedidos":pedidos})
+#Informe
+#Vista Informe
+def GenerarInforme(request):
+    # total = Plato.id_plato
+    # for total in 
+    informe = Plato.objects.count() 
+    informe2 = Insumo.objects.count()
+    totalDiario = 0
+    pedidos = PedidoPlato.objects.filter(pagado = True)
+
+    for pedido in pedidos:
+        platos = DetallePedidoPlato.objects.filter(id_pedido = pedido)
+
+        for plato in platos:
+            totalDiario = totalDiario + plato.id_plato.precio
+
+    print(f'La cantidad de platos es {informe} ')
+    print(f'Total diario ganado es {totalDiario} ')
+    return render(request= request, template_name= "informe/PruebaInforme.html",context= {"informe":informe,"informe2":informe2,"totalDiario":totalDiario})
 

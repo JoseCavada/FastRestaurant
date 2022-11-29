@@ -11,22 +11,27 @@
     {# CSS Bootstrap #}
     {% bootstrap_css %} 
 	<link rel="stylesheet" href="{% static 'css\estilos.css' %}">
+	<script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 	<header>
 		{% block navbar %}
-		<nav class="navbar">
+		{% if user.is_authenticated and user.rol != "mesa" %}
+		<nav class="navbar" style="background-color: #1BB0FF;">
 			
 			<div class="izquierda">
 				{% if user.rol == "adm" %}
 				<a class = "white" href="{% url 'listar_usuario'%}" >Usuarios</a> |
 				<a class = "white" href="{% url 'listar_insumo' %}">Insumos</a> |
 				<a class = "white" href="{% url 'listar_mesa' %}">Mesas</a> |
-				<a class = "white" href="#">Pedir insumos</a>
+				<a class= "white" href="{% url 'informe' %}"> Informe</a>
+				
 				{% elif user.rol == "coc" %}
 				<a href="#"> </a>
 				{% elif user.rol == "bod" %}
 				<a class = "white" href="{% url 'listar_plato' %}">Platos</a> |
 				<a class = "white" href="{% url 'listar_insumo' %}">Insumos</a>
+				{% elif user.rol == "fin" %}
+				<a class= "white" href="{% url 'informe' %}"> Informe</a>
 				{% endif %}
 			</div>
 			
@@ -42,9 +47,11 @@
 			</div>
 			
 		</nav>
+		{% endif %}
 		{% endblock %}
 	</header>
 <body>
+	<br>
 	{% include 'messages.html' %}
 	{% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %}
 

@@ -5,11 +5,13 @@
 
 {% load widget_tweaks %}
 <div>
-  <h1>
+  <h1 class="margen">
     Editar Plato
+    
   </h1>
+  <hr>
 </div>
-<form method="post" enctype="multipart/form-data">
+<form style="margin-left:30px;margin-right: 80%;" method="post" enctype="multipart/form-data">
   {% csrf_token %}
 <div class="form-group">
     <label for="nombre" class="txt_negrita">Nombre</label>

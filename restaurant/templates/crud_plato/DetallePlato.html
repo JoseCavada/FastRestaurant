@@ -1,10 +1,48 @@
 {% extends "base_generic.html" %}
 {% block content %}
 {% if user.rol == "adm" or user.rol == "bod" %}
-<div class="formulario" align="center">
-<h4>Detalles Plato</h4>
- 
-<p><span class="txt_negrita"> Id:</span> <br>  {{object.id_plato}}</p>
+<h1 style="margin-left: 30px ;">Detalles Plato</h1>
+<hr>
+<div class="formulario">
+
+<table class="margenL">
+  <tr>
+    <td class="txt_negrita">Id:</td>
+    <td>{{object.id_plato}}</td>
+  </tr>
+  <tr>
+    <td class="txt_negrita">Nombre:</td>
+    <td>{{object.nombre}}</td>
+  </tr>
+  <tr>
+    <td class="txt_negrita">Descripcion:</td>
+    <td>{{object.descripcion}}</td>
+  </tr>
+  <tr>
+    <td class="txt_negrita">Precio:</td>
+    <td>{{object.precio}}</td>
+  </tr>
+  <tr>
+    <td class="txt_negrita">Disponibilidad:</td>
+    <td>{% if object.disponibilidad == True %}
+      {% load static %} 
+        <td align="center"> <img src ="{% static 'true.ico' %}" height=30 width=30></td>
+      {% else %}
+        <td align="center"> <img src ="{% static 'false.ico' %}" height=32 width=32></td>
+      {% endif %}</td>
+  </tr>
+  <tr>
+    <td class="txt_negrita">Ingredientes:</td>
+    <td>{% for object in object.ingredientes.all %} {{ object.nombre }}<br/>{% endfor %}</td>
+  </tr>
+  <tr>
+    <td class="txt_negrita">Imagen Producto:</td>
+    <td><img src="{{object.imagen_producto.url}}" alt="{{object.nombre}}" class="img-fluid"></td>
+  </tr>
+
+</table> 
+
+<!-- <p><span class="txt_negrita"> Id:</span> <br>  {{object.id_plato}}</p>
 <p><span class="txt_negrita"> Nombre:</span> <br>  {{object.nombre}}</p>
 <p><span class="txt_negrita"> descripcion:</span> <br>  {{object.descripcion}}</p>
 <p><span class="txt_negrita"> precio:</span> <br>  {{object.precio}}</p>
@@ -22,9 +60,9 @@
 </p>
 
 
-<p><span class="txt_negrita"> imagen_producto:</span> <br><img src="{{object.imagen_producto.url}}" alt="{{object.nombre}}" class="img-fluid"></p>
+<p><span class="txt_negrita"> imagen_producto:</span> <br><img src="{{object.imagen_producto.url}}" alt="{{object.nombre}}" class="img-fluid"></p> -->
 <!-- Botón para volver a la vista principal (Home) -->
- <a href="{% url 'listar_plato' %}" type="submit" class="btn btn-primary">Volver</a>
+ <a style="margin: 30px ;" href="{% url 'listar_plato' %}" type="submit" class="btn btn-primary">Volver</a>
 </div>
 {% else %}
 FORBIDDEN!

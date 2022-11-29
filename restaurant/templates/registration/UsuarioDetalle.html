@@ -2,21 +2,55 @@
 {% block content %}
 {% if user.rol == "adm" %}
 <div class="formulario">
-<h4>Detalles usuario</h4>
+<h1 class="margen">Detalles usuario</h1>
+<hr>
  
-<p><span class="txt_negrita"> Id:</span> <br>  {{object.id_user}}</p>
-<p><span class="txt_negrita"> Nombre de usuario:</span> <br>  {{object.nombre_usuario}}</p>
-<p><span class="txt_negrita"> Primer Nombre:</span> <br>  {{object.primer_nombre}}</p>
-<p><span class="txt_negrita"> Segundo Nombre:</span> <br>  {{object.segundo_nombre}}</p>
-<p><span class="txt_negrita"> Primer apellido:</span> <br>  {{object.primer_apellido}}</p>
-<p><span class="txt_negrita"> Segundo apellido:</span> <br>  {{object.segundo_apellido}}</p>
-<p><span class="txt_negrita"> Correo:</span> <br>  {{object.correo}}</p>
-<p><span class="txt_negrita"> Rol:</span> <br>  {{object.rol}}</p>
-<p><span class="txt_negrita"> Última conexión:</span> <br>  {{object.last_login}}</p>
-<p><span class="txt_negrita"> Estado de administrador:</span> <br>  {{object.is_staff}}</p>
+<table class="margenL">
+    <tr>
+        <td class="txt_negrita">Id:</td>
+        <td style="text-align:center ;">{{object.id_user}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Nombre de Usuario: </td>
+        <td style="text-align:center ;">{{object.nombre_usuario}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Primer Nombre: </td>
+        <td style="text-align:center ;">{{object.primer_nombre}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Segundo Nombre: </td>
+        <td style="text-align:center ;">{{object.segundo_nombre}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Primer apellido: </td>
+        <td style="text-align:center ;">{{object.primer_apellido}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Segundo apellido: </td>
+        <td style="text-align:center ;">{{object.segundo_apellido}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Correo: </td>
+        <td style="text-align:center ;">{{object.correo}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Rol: </td>
+        <td style="text-align:center ;">{{object.rol}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Última conexión: </td>
+        <td style="text-align:center ;">{{object.last_login}}</td>
+    </tr>
+    <tr>
+        <td class="txt_negrita">Estado de administrador: </td>
+        <td style="text-align:center ;">{{object.is_staff}}</td>
+    </tr>
+
+</table>
 
 <!-- Botón para volver a la vista principal (Home) -->
- <a href="{% url 'listar_usuario' %}" type="submit" class="btn btn-primary">Volver</a>
+ <a style="margin: 30px ;" href="{% url 'listar_usuario' %}" type="submit" class="btn btn-primary">Volver</a>
 </div>
 {% else %}
 FORBIDDEN!

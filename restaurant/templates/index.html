@@ -1,23 +1,31 @@
 {% extends "base_generic.html" %}
 {% block content %}
+{% load static%}
 {% if user.is_authenticated %}
 
-<p>Usuario {{user.nombre_usuario}} iniciado sesión</p>
+<body class="fondo">
+
+
+	<p class="letra">Bienvenido {{user.nombre_usuario}}</p>
 	{% if user.rol == "adm" %}
-	<p>Rol de usuario es administrador</p>
+	<p class="letra">Rol de usuario es administrador</p>
 	{% endif %}
 	{% if user.rol == "fin" %}
-		<p>Rol de usuario es finanza</p>
+		<p class="letra">Rol de usuario es finanza</p>
 	{% endif %}
 	{% if user.rol == "coc" %}
-		<p>Rol de usuario es cocina</p>
+		<p class="letra">Rol de usuario es cocina</p>
 	{% endif %}
 	{% if user.rol == "bod" %}
-		<p>Rol de usuario es bodega</p>
+		<p class="letra">Rol de usuario es bodega</p>
 	{% endif %}
 	{% if user.rol == "mesa" %}
 		<h1>Pidiendo platos a {{user.primer_nombre}}</h1>
 	{% endif %}
+
+
+</body>
+
 
 {% endif %}
 {% endblock %}
