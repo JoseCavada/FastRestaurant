@@ -1,21 +1,46 @@
-# FastRestaurant
+# FastRestaurant 🍽️
+FastRestaurant es una aplicación web desarrollada en Django para la gestión de restaurantes. Permite administrar pedidos, gestionar menús y facilitar pagos en línea a través de MercadoPago.
 
-Librerias necesarias:
+## ✨ Características
+📋 Gestión de pedidos: Registro y actualización de pedidos en tiempo real.
+
+🍕 Menú dinámico: Administración de productos y categorías.
+
+🛒 Integración con MercadoPago: Pagos rápidos y seguros.
+
+👤 Autenticación con Django Sesame: Acceso seguro sin necesidad de contraseñas complejas.
+
+🎨 Interfaz amigable: Diseño basado en Bootstrap para una mejor experiencia de usuario.
+
+## 🛠️ Tecnologías utilizadas
+Django: Framework web para backend.
+
+Pillow: Manejo de imágenes en productos.
+
+Django Bootstrap4: Mejora del diseño con Bootstrap.
+
+Django Widget Tweaks: Personalización de formularios.
+
+Django Sesame: Autenticación simplificada.
+
+MercadoPago SDK: Procesamiento de pagos.
+
+## 🚀 Instalación
+### Clona el repositorio:
+
+```
+git clone https://github.com/JoseCavada/FastRestaurant.git
+cd FastRestaurant 
+```
+### Instala las dependencias:
+
+``` pip install {librerias} ```
+
+### Realiza las migraciones:
 
 
-pip install django
+``` python manage.py migrate ```
 
+### Inicia el servidor:
 
-pip install pillow
-
-
-pip install django-bootstrap4
-
-
-pip install django-widget-tweaks
-
-
-pip install django-sesame (cambiando el parámetro "pk" por defecto al nuevo del modelo de usuario personalizado)
-
-
-pip install mercadopago
+``` python manage.py runserver ```
