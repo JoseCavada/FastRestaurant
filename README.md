@@ -1,6 +1,6 @@
 # FastRestaurant 🍽️
 FastRestaurant es una aplicación web desarrollada en Django para la gestión de restaurantes. Permite administrar pedidos, gestionar menús y facilitar pagos en línea a través de MercadoPago.
-
+> 📌 _Este proyecto fue desarrollado como parte de mi **proyecto de título**._  
 ## ✨ Características
 📋 Gestión de pedidos: Registro y actualización de pedidos en tiempo real.
 
